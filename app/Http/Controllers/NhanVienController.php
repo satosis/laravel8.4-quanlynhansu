@@ -9,6 +9,7 @@ use App\Models\DanToc;
 use App\Models\HopDong;
 use App\Models\NhanVien;
 use App\Models\PhuCap;
+use App\Models\User;
 use App\Models\NgoaiNgu;
 use App\Models\TonGiao;
 use Illuminate\Support\Facades\Auth;
@@ -133,6 +134,7 @@ class NhanVienController extends Controller
 
     public function edit(NhanVien $nhanvien)
     {
+        $user = User::where("nhanvien_id", $nhanvien->id)->first();
         return Inertia::render('NhanVien/Edit', [
             'phucap' => (new PhuCap())->getAll(),
             'bangcap' => (new BangCap())
@@ -178,6 +180,7 @@ class NhanVienController extends Controller
                 'quequan' => $nhanvien->quequan,
                 'trangthai' => $nhanvien->trangthai,
                 'bacluong' => $nhanvien->bacluong,
+                'role' => $user->role,
                 'hesoluong' => $nhanvien->hesoluong,
                 'photo' => $nhanvien->photo_path ? URL::route('image', ['path' => $nhanvien->photo_path, 'w' => 60, 'h' => 60, 'fit' => 'crop']) : null,
                 'deleted_at' => $nhanvien->deleted_at,

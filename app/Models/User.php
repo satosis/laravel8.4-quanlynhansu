@@ -39,7 +39,7 @@ class User extends Authenticatable
             case 2:
                 return 'Quản trị viên';
             case 1:
-                return 'Quản lý';
+                return 'Tổ trưởng';
         }
 
         return 'Người dùng';

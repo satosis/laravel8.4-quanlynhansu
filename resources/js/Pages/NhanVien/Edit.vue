@@ -84,6 +84,11 @@
           <text-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.cmnd" :error="form.errors.cmnd" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="CMND" />
           <text-input v-model="form.diachi" :error="form.errors.diachi" class="pr-6 pb-8 w-full lg:w-1/2" label="Địa chỉ" />
           <text-input v-model="form.quequan" :error="form.errors.quequan" class="pr-6 pb-8 w-full lg:w-1/2" label="Quê quán" />
+          <select-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.role" :error="form.errors.role" class="pr-6 pb-8 w-full lg:w-1/2" label="Quyền hạn">
+            <option :value="0">Nhân viên</option>
+            <option :value="1">Tổ trưởng</option>
+            <option :value="2">Quản trị viên</option>
+          </select-input>
           <file-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.photo" :error="form.errors.photo" class="pr-6 pb-8 w-full lg:w-1/1" type="file" accept="image/*" label="Ảnh đại diện" />
         </div>
         <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center">
@@ -335,7 +340,8 @@ export default {
         quequan: this.nhanvien.quequan,
         bacluong: this.nhanvien.bacluong,
         hesoluong: this.nhanvien.hesoluong.toString(),
-        photo: null
+        photo: null,
+        role: this.nhanvien.role,
       })
     }
   },

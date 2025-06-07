@@ -163,7 +163,6 @@ export default {
   },
   methods: {
     store() {
-      console.log(this.form.fileimport);
       var formData = new FormData();
       formData.append('file_import', this.form.fileimport);
       axios.post('/nhanvien/import', formData, {

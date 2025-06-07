@@ -24,6 +24,7 @@ use App\Http\Controllers\HeSoController;
 use App\Http\Controllers\BangChamCongController;
 use App\Http\Controllers\NhanLuongController;
 use App\Http\Controllers\KhauTruController;
+use App\Http\Controllers\SanPhamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,11 +61,11 @@ Route::get('/', [DashboardController::class, 'index'])
 
 Route::get('users', [UsersController::class, 'index'])
     ->name('users')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('users', [UsersController::class, 'store'])
     ->name('users.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('users/{user}/edit', [UsersController::class, 'edit'])
     ->name('users.edit')
@@ -76,49 +77,49 @@ Route::put('users/{user}', [UsersController::class, 'update'])
 
 Route::delete('users/{user}', [UsersController::class, 'destroy'])
     ->name('users.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // NhanVien
 
 Route::get('nhanvien', [NhanVienController::class, 'index'])
     ->name('nhanvien')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nhanvien/create', [NhanVienController::class, 'create'])
     ->name('nhanvien.create')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('nhanvien', [NhanVienController::class, 'store'])
     ->name('nhanvien.store')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nhanvien/{nhanvien}/edit', [NhanVienController::class, 'edit'])
     ->name('nhanvien.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('nhanvien/{nhanvien}', [NhanVienController::class, 'update'])
     ->name('nhanvien.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('nhanvien/{nhanvien}', [NhanVienController::class, 'destroy'])
     ->name('nhanvien.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('nhanvien/{nhanvien}/restore', [NhanVienController::class, 'restore'])
     ->name('nhanvien.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('nhanvien/import', [NhanVienController::class, 'import'])
     ->name('nhanvien.import')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nhanvien/export', [NhanVienController::class, 'export'])
     ->name('nhanvien.export')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 // Images
 
@@ -160,492 +161,521 @@ Route::put('chamcong/{chamcong}/restore', [ChamCongController::class, 'restore']
 
 Route::get('bangcap', [BangCapController::class, 'index'])
     ->name('bangcap')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('bangcap/create', [BangCapController::class, 'create'])
     ->name('bangcap.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('bangcap', [BangCapController::class, 'store'])
     ->name('bangcap.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('bangcap/{bangcap}/edit', [BangCapController::class, 'edit'])
     ->name('bangcap.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('bangcap/{bangcap}', [BangCapController::class, 'update'])
     ->name('bangcap.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('bangcap/{bangcap}', [BangCapController::class, 'destroy'])
     ->name('bangcap.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('bangcap/{bangcap}/restore', [BangCapController::class, 'restore'])
     ->name('bangcap.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // ChucVu
 
 Route::get('chucvu', [ChucVuController::class, 'index'])
     ->name('chucvu')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('chucvu/create', [ChucVuController::class, 'create'])
     ->name('chucvu.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('chucvu', [ChucVuController::class, 'store'])
     ->name('chucvu.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('chucvu/{chucvu}/edit', [ChucVuController::class, 'edit'])
     ->name('chucvu.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('chucvu/{chucvu}', [ChucVuController::class, 'update'])
     ->name('chucvu.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('chucvu/{chucvu}', [ChucVuController::class, 'destroy'])
     ->name('chucvu.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('chucvu/{chucvu}/restore', [ChucVuController::class, 'restore'])
     ->name('chucvu.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // ChuyenMon
 
 Route::get('chuyenmon', [ChuyenMonController::class, 'index'])
     ->name('chuyenmon')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('chuyenmon/create', [ChuyenMonController::class, 'create'])
     ->name('chuyenmon.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('chuyenmon', [ChuyenMonController::class, 'store'])
     ->name('chuyenmon.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('chuyenmon/{chuyenmon}/edit', [ChuyenMonController::class, 'edit'])
     ->name('chuyenmon.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('chuyenmon/{chuyenmon}', [ChuyenMonController::class, 'update'])
     ->name('chuyenmon.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('chuyenmon/{chuyenmon}', [ChuyenMonController::class, 'destroy'])
     ->name('chuyenmon.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('chuyenmon/{chuyenmon}/restore', [ChuyenMonController::class, 'restore'])
     ->name('chuyenmon.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // DanToc
 
 Route::get('dantoc', [DanTocController::class, 'index'])
     ->name('dantoc')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('dantoc/create', [DanTocController::class, 'create'])
     ->name('dantoc.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('dantoc', [DanTocController::class, 'store'])
     ->name('dantoc.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('dantoc/{dantoc}/edit', [DanTocController::class, 'edit'])
     ->name('dantoc.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('dantoc/{dantoc}', [DanTocController::class, 'update'])
     ->name('dantoc.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('dantoc/{dantoc}', [DanTocController::class, 'destroy'])
     ->name('dantoc.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('dantoc/{dantoc}/restore', [DanTocController::class, 'restore'])
     ->name('dantoc.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // LoaiBaoHiem
 
 Route::get('loaibaohiem', [LoaiBaoHiemController::class, 'index'])
     ->name('loaibaohiem')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('loaibaohiem/create', [LoaiBaoHiemController::class, 'create'])
     ->name('loaibaohiem.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('loaibaohiem', [LoaiBaoHiemController::class, 'store'])
     ->name('loaibaohiem.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('loaibaohiem/{loaibaohiem}/edit', [LoaiBaoHiemController::class, 'edit'])
     ->name('loaibaohiem.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('loaibaohiem/{loaibaohiem}', [LoaiBaoHiemController::class, 'update'])
     ->name('loaibaohiem.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('loaibaohiem/{loaibaohiem}', [LoaiBaoHiemController::class, 'destroy'])
     ->name('loaibaohiem.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('loaibaohiem/{loaibaohiem}/restore', [LoaiBaoHiemController::class, 'restore'])
     ->name('loaibaohiem.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // BaoHiem
 Route::get('baohiem', [BaoHiemController::class, 'index'])
     ->name('baohiem')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('baohiem/{nhanvien}/create', [BaoHiemController::class, 'create'])
     ->name('baohiem.create')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('baohiem/{baohiem}/edit', [BaoHiemController::class, 'edit'])
     ->name('baohiem.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('baohiem/{nhanvien}', [BaoHiemController::class, 'store'])
     ->name('baohiem.store')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('baohiem/{baohiem}', [BaoHiemController::class, 'update'])
     ->name('baohiem.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('baohiem/{baohiem}', [BaoHiemController::class, 'destroy'])
     ->name('baohiem.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('baohiem/{baohiem}/restore', [BaoHiemController::class, 'restore'])
     ->name('baohiem.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 // NgoaiNgu
 
 Route::get('ngoaingu', [NgoaiNguController::class, 'index'])
     ->name('ngoaingu')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('ngoaingu/create', [NgoaiNguController::class, 'create'])
     ->name('ngoaingu.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('ngoaingu', [NgoaiNguController::class, 'store'])
     ->name('ngoaingu.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('ngoaingu/{ngoaingu}/edit', [NgoaiNguController::class, 'edit'])
     ->name('ngoaingu.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('ngoaingu/{ngoaingu}', [NgoaiNguController::class, 'update'])
     ->name('ngoaingu.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('ngoaingu/{ngoaingu}', [NgoaiNguController::class, 'destroy'])
     ->name('ngoaingu.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('ngoaingu/{ngoaingu}/restore', [NgoaiNguController::class, 'restore'])
     ->name('ngoaingu.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // PhongBan
 
 Route::get('phongban', [PhongBanController::class, 'index'])
     ->name('phongban')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('phongban/create', [PhongBanController::class, 'create'])
     ->name('phongban.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('phongban', [PhongBanController::class, 'store'])
     ->name('phongban.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('phongban/{phongban}/edit', [PhongBanController::class, 'edit'])
     ->name('phongban.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('phongban/{phongban}', [PhongBanController::class, 'update'])
     ->name('phongban.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('phongban/{phongban}', [PhongBanController::class, 'destroy'])
     ->name('phongban.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('phongban/{phongban}/restore', [PhongBanController::class, 'restore'])
     ->name('phongban.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // TonGiao
 
 Route::get('tongiao', [TonGiaoController::class, 'index'])
     ->name('tongiao')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('tongiao/create', [TonGiaoController::class, 'create'])
     ->name('tongiao.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('tongiao', [TonGiaoController::class, 'store'])
     ->name('tongiao.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('tongiao/{tongiao}/edit', [TonGiaoController::class, 'edit'])
     ->name('tongiao.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('tongiao/{tongiao}', [TonGiaoController::class, 'update'])
     ->name('tongiao.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('tongiao/{tongiao}', [TonGiaoController::class, 'destroy'])
     ->name('tongiao.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('tongiao/{tongiao}/restore', [TonGiaoController::class, 'restore'])
     ->name('tongiao.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // MucLuong
 
 Route::get('phucap', [PhuCapController::class, 'index'])
     ->name('phucap')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('phucap/create', [PhuCapController::class, 'create'])
     ->name('phucap.create')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('phucap', [PhuCapController::class, 'store'])
     ->name('phucap.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::get('phucap/{phucap}/edit', [PhuCapController::class, 'edit'])
     ->name('phucap.edit')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('phucap/{phucap}', [PhuCapController::class, 'update'])
     ->name('phucap.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::delete('phucap/{phucap}', [PhuCapController::class, 'destroy'])
     ->name('phucap.destroy')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('phucap/{phucap}/restore', [PhuCapController::class, 'restore'])
     ->name('phucap.restore')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 // HopDong
 Route::get('hopdong', [HopDongController::class, 'index'])
     ->name('hopdong')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('hopdong/{nhanvien}/create', [HopDongController::class, 'create'])
     ->name('hopdong.create')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('hopdong/{hopdong}/edit', [HopDongController::class, 'edit'])
     ->name('hopdong.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('hopdong/{nhanvien}', [HopDongController::class, 'store'])
     ->name('hopdong.store')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('hopdong/{hopdong}', [HopDongController::class, 'update'])
     ->name('hopdong.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('hopdong/{hopdong}', [HopDongController::class, 'destroy'])
     ->name('hopdong.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('hopdong/{hopdong}/restore', [HopDongController::class, 'restore'])
     ->name('hopdong.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 // UngLuong
 Route::get('ungluong', [UngLuongController::class, 'index'])
     ->name('ungluong')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('ungluong/{nhanvien}/create', [UngLuongController::class, 'create'])
     ->name('ungluong.create')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('ungluong/{ungluong}/edit', [UngLuongController::class, 'edit'])
     ->name('ungluong.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('ungluong/{nhanvien}', [UngLuongController::class, 'store'])
     ->name('ungluong.store')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('ungluong/{ungluong}', [UngLuongController::class, 'update'])
     ->name('ungluong.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('ungluong/{ungluong}', [UngLuongController::class, 'destroy'])
     ->name('ungluong.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('ungluong/{ungluong}/restore', [UngLuongController::class, 'restore'])
     ->name('ungluong.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 // NhanLuong
 
 Route::get('nhanluong/tinhluong', [NhanLuongController::class, 'tinhluong'])
     ->name('tinhluong')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nhanluong', [NhanLuongController::class, 'index'])
     ->name('nhanluong')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nhanluong/{nhanvien}/create', [NhanLuongController::class, 'create'])
     ->name('nhanluong.create')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nhanluong/{nhanluong}/edit', [NhanLuongController::class, 'edit'])
     ->name('nhanluong.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('nhanluong/{nhanvien}', [NhanLuongController::class, 'store'])
     ->name('nhanluong.store')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('nhanluong/{nhanluong}', [NhanLuongController::class, 'update'])
     ->name('nhanluong.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('nhanluong/{nhanluong}', [NhanLuongController::class, 'destroy'])
     ->name('nhanluong.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('nhanluong/{nhanluong}/restore', [NhanLuongController::class, 'restore'])
     ->name('nhanluong.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nhanluong/export', [NhanLuongController::class, 'export'])
     ->name('nhanluong.export')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 // Khautru
 Route::get('khautru', [KhauTruController::class, 'index'])
     ->name('khautru')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('khautru/{khautru}/edit', [KhauTruController::class, 'edit'])
     ->name('khautru.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('khautru/{khautru}', [KhauTruController::class, 'update'])
     ->name('khautru.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('khautru/{khautru}', [KhauTruController::class, 'destroy'])
     ->name('khautru.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('khautru/{khautru}/restore', [KhauTruController::class, 'restore'])
     ->name('khautru.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 // NghiViec
 Route::get('nghiviec', [NghiViecController::class, 'index'])
     ->name('nghiviec')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nghiviec/{nhanvien}/create', [NghiViecController::class, 'create'])
     ->name('nghiviec.create')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('nghiviec/{nghiviec}/edit', [NghiViecController::class, 'edit'])
     ->name('nghiviec.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('nghiviec/{nhanvien}', [NghiViecController::class, 'store'])
     ->name('nghiviec.store')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('nghiviec/{nghiviec}', [NghiViecController::class, 'update'])
     ->name('nghiviec.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('nghiviec/{nghiviec}', [NghiViecController::class, 'destroy'])
     ->name('nghiviec.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('nghiviec/{nghiviec}/restore', [NghiViecController::class, 'restore'])
     ->name('nghiviec.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 // NghiViec
 Route::get('thuongphat', [ThuongPhatController::class, 'index'])
     ->name('thuongphat')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('thuongphat/{nhanvien}/create', [ThuongPhatController::class, 'create'])
     ->name('thuongphat.create')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::get('thuongphat/{thuongphat}/edit', [ThuongPhatController::class, 'edit'])
     ->name('thuongphat.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('thuongphat/{nhanvien}', [ThuongPhatController::class, 'store'])
     ->name('thuongphat.store')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('thuongphat/{thuongphat}', [ThuongPhatController::class, 'update'])
     ->name('thuongphat.update')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::delete('thuongphat/{thuongphat}', [ThuongPhatController::class, 'destroy'])
     ->name('thuongphat.destroy')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::put('thuongphat/{thuongphat}/restore', [ThuongPhatController::class, 'restore'])
     ->name('thuongphat.restore')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 
 // heso
 Route::get('heso', [HeSoController::class, 'index'])
     ->name('heso')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::put('heso', [HeSoController::class, 'update'])
     ->name('heso.update')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 
 // bangchamcong
 Route::get('bangchamcong', [BangChamCongController::class, 'index'])
     ->name('bangchamcong')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
 
 Route::post('bangchamcong', [BangChamCongController::class, 'store'])
     ->name('bangchamcong.store')
-    ->middleware('auth');
+    ->middleware('check_admin_login');
+
+
+Route::get('sanpham', [SanPhamController::class, 'index'])
+    ->name('sanpham')
+    ->middleware('check_to_truong_login');
+
+Route::get('sanpham/create', [SanPhamController::class, 'create'])
+    ->name('sanpham.create')
+    ->middleware('check_to_truong_login');
+
+Route::get('sanpham/{sanpham}/edit', [SanPhamController::class, 'edit'])
+    ->name('sanpham.edit')
+    ->middleware('check_to_truong_login');
+
+Route::post('sanpham/{nhanvien}', [SanPhamController::class, 'store'])
+    ->name('sanpham.store')
+    ->middleware('check_to_truong_login');
+
+Route::put('sanpham/{sanpham}', [SanPhamController::class, 'update'])
+    ->name('sanpham.update')
+    ->middleware('check_to_truong_login');
+
+Route::delete('sanpham/{sanpham}', [SanPhamController::class, 'destroy'])
+    ->name('sanpham.destroy')
+    ->middleware('check_to_truong_login');
+
+Route::put('sanpham/{sanpham}/restore', [SanPhamController::class, 'restore'])
+    ->name('sanpham.restore')
+    ->middleware('check_to_truong_login');

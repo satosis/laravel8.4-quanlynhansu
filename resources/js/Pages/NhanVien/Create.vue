@@ -58,9 +58,8 @@
             <option v-for="td in dantoc" :key="td.id" :value="td.id">{{ td.tendt }}</option>
           </select-input>
           <select-input v-model="form.role" :error="form.errors.role" class="pr-6 pb-8 w-full lg:w-1/2" label="Quyền hạn">
-            <option :value="null">- Chọn -</option>
-            <option :value="0">Người dùng</option>
-            <option :value="1">Quản lý</option>
+            <option :value="0">Nhân viên</option>
+            <option :value="1">Tổ trưởng</option>
             <option :value="2">Quản trị viên</option>
           </select-input>
           <text-input v-model="form.email" :error="form.errors.email" class="pr-6 pb-8 w-full lg:w-1/2" type="email" label="Email" />

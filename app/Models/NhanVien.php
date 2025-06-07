@@ -26,6 +26,7 @@ class NhanVien extends Model
         'cmnd',
         'sdt',
         'diachi',
+        'role',
         'quequan',
         'trangthai',
         'ngaynghilam',
