@@ -10,12 +10,6 @@
         <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('thuongphat.create', nhanvien.id)">
             <span>Thưởng Phạt</span>
         </inertia-link>
-        <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('ungluong.create', nhanvien.id)">
-            <span>Ứng Lương</span>
-        </inertia-link>
-        <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('nhanluong.create', nhanvien.id)">
-            <span>Nhận Lương</span>
-        </inertia-link>
         <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('nghiviec.create', nhanvien.id)">
             <span>Nghỉ Việc</span>
         </inertia-link>

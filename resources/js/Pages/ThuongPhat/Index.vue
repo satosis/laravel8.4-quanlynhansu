@@ -54,7 +54,7 @@
           </td>
         </tr>
         <tr v-if="thuongphat.data.length === 0">
-          <td class="border-t px-6 py-4" colspan="5">Không có ứng lương nào cả.</td>
+          <td class="border-t px-6 py-4" colspan="5">Không có thưởng phạt nào cả.</td>
         </tr>
       </table>
     </div>
