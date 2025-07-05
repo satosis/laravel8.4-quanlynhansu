@@ -10,7 +10,7 @@
         <inertia-link v-if="$page.props.auth.user.role == 1" class="btn-indigo" :href="route('thuongphat.create', nhanvien.id)">
             <span>Thưởng Phạt</span>
         </inertia-link>
-        <inertia-link v-if="$page.props.auth.user.role"  class="btn-indigo" :href="route('nhanluong.create', nhanvien.id)">
+        <inertia-link v-if="$page.props.auth.user.role == 2"  class="btn-indigo" :href="route('nhanluong.create', nhanvien.id)">
             <span>Nhận Lương</span>
         </inertia-link>
         <inertia-link v-if="$page.props.auth.user.role == 1"  class="btn-indigo" :href="route('chamcong', { nhanvien: nhanvien.id })">
