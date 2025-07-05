@@ -12,10 +12,10 @@
                         @method('PUT')
 
                         <div class="form-group row mb-3">
-                            <label for="nhan_vien_id" class="col-md-4 col-form-label text-md-right">Nhân viên</label>
+                            <label for="nhan_vien_id" class="col-md-4 col-form-label text-md-right">Công nhân</label>
                             <div class="col-md-6">
                                 <select name="nhan_vien_id" id="nhan_vien_id" class="form-control @error('nhan_vien_id') is-invalid @enderror" required>
-                                    <option value="">Chọn nhân viên</option>
+                                    <option value="">Chọn công nhân</option>
                                     @foreach($nhanViens as $nhanVien)
                                         <option value="{{ $nhanVien->id }}" {{ $sanPham->nhan_vien_id == $nhanVien->id ? 'selected' : '' }}>
                                             {{ $nhanVien->ho_ten }}

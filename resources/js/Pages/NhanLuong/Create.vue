@@ -2,7 +2,7 @@
   <div>
     <div class="mb-8 flex justify-between items-center">
       <h1 class="font-bold text-3xl">
-        <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('nhanvien')">Nhân Viên</inertia-link>
+        <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('nhanvien')">Công nhân</inertia-link>
         <span class="text-indigo-400 font-medium">/</span>
         <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('nhanvien.edit', nhanvien.id)">{{ nhanvien.hovaten }}</inertia-link>
         <span class="text-indigo-400 font-medium">/</span> Nhận Lương
@@ -35,7 +35,7 @@ import TextInput from '@/Shared/TextInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 export default {
-  metaInfo: { title: 'Nhân Viên Nhận Lương' },
+  metaInfo: { title: 'Công nhân Nhận Lương' },
   components: {
     LoadingButton,
     SelectInput,

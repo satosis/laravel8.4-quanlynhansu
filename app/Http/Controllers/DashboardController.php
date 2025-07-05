@@ -56,7 +56,7 @@ class DashboardController extends Controller
             $sx_series[1]['data'][] = $row_nay ? (int) $row_nay->tong_san_xuat : 0;
         }
 
-        // 2. Báo cáo lương nhân viên theo tháng
+        // 2. Báo cáo lương công nhân theo tháng
         $nhanviens = \DB::table('nhanvien')->pluck('hovaten', 'id');
         $months    = \DB::table('nhanluong')
             ->select(\DB::raw('CONCAT(thang, "/", nam) as thangnam'))
@@ -83,7 +83,7 @@ class DashboardController extends Controller
             ];
         }
 
-        // 3. Báo cáo số lượng nhân viên
+        // 3. Báo cáo số lượng công nhân
         $dang_lam = \DB::table('nhanvien')->where('trangthai', 1)->count();
         $da_nghi  = \DB::table('nhanvien')->where('trangthai', 0)->count();
         $nam      = \DB::table('nhanvien')->where('gioitinh', 1)->count();

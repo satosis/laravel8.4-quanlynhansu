@@ -18,7 +18,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nhân viên</th>
+                                    <th>Công nhân</th>
                                     <th>Ngày sản xuất</th>
                                     <th>Số lượng đạt</th>
                                     <th>Số lượng không đạt</th>

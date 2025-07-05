@@ -19,10 +19,16 @@
         <div :class="isUrl('baocao') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Báo cáo</div>
       </inertia-link>
     </div>
+    <div v-if="$page.props.auth.user.role == 2" class="mb-4">
+      <inertia-link class="flex items-center group py-3" :href="route('nhanluong')">
+        <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('nhanluong') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('nhanluong') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Quản lý lương</div>
+      </inertia-link>
+    </div>
     <div v-if="$page.props.auth.user.role" class="mb-4">
       <inertia-link class="flex items-center group py-3" :href="route('nhanvien')">
         <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('nhanvien') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('nhanvien') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Nhân Viên</div>
+        <div :class="isUrl('nhanvien') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Công nhân</div>
       </inertia-link>
     </div>
     <div v-if="$page.props.auth.user.role == 1" class="mb-4">

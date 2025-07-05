@@ -15,11 +15,11 @@ class SanPhamController extends Controller
 {
     public function index()
     {
-        return Inertia::render('SanPham/Index', [
-            'filters' => Request::all('search', 'trashed'),
-            'sanpham' => (new SanPham())
-                ->filter(Request::only('search', 'trashed'))
-                ->paginate(10)
+        $sanpham = SanPham::filter(Request::only('search', 'trashed'));
+         if (! Auth::user()->role) {
+            $sanpham = $sanpham->where("nhanvien_id", Auth::user()->nhanvien_id);
+        }
+        $sanpham = $sanpham->paginate(10)
                 ->withQueryString()
                 ->through(fn ($sanpham) => [
                     'id' => $sanpham->id,
@@ -32,7 +32,10 @@ class SanPhamController extends Controller
                     'ghi_chu' => $sanpham->ghi_chu,
                     'nguoi_danh_gia' => str_pad($sanpham->nguoiDanhGia->hovaten, 3, '0', STR_PAD_LEFT),
                     'deleted_at' => $sanpham->deleted_at,
-                ]),
+                ]);
+        return Inertia::render('SanPham/Index', [
+            'filters' => Request::all('search', 'trashed'),
+            'sanpham' => $sanpham
         ]);
     }
 

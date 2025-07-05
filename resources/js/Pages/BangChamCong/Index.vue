@@ -12,7 +12,7 @@
     <div class="bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Mã nhân viên</th>
+          <th class="px-6 pt-6 pb-4">Mã công nhân</th>
           <th class="px-6 pt-6 pb-4">Họ và tên</th>
           <th class="px-6 pt-6 pb-4">Email</th>
           <th class="px-6 pt-6 pb-4 text-center"><input type="checkbox" @click="selectAll" v-model="allSelected"></th>
@@ -44,7 +44,7 @@
           </td>
         </tr>
         <tr v-if="nhanvien.data.length === 0">
-          <td class="border-t px-6 py-4" colspan="5">Không có nhân viên nào cả.</td>
+          <td class="border-t px-6 py-4" colspan="5">Không có công nhân nào cả.</td>
         </tr>
       </table>
     </div>
@@ -64,7 +64,7 @@ import throttle from 'lodash/throttle'
 import LoadingButton from '@/Shared/LoadingButton'
 import TrashedMessage from '@/Shared/TrashedMessage'
 export default {
-  metaInfo: { title: 'Nhân Viên' },
+  metaInfo: { title: 'Công nhân' },
   layout: Layout,
   components: {
     Icon,

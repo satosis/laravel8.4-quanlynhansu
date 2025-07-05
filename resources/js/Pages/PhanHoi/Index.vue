@@ -17,7 +17,7 @@
     <div class="bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Mã nhân viên</th>
+          <th class="px-6 pt-6 pb-4">Mã công nhân</th>
           <th class="px-6 pt-6 pb-4">Họ và tên</th>
           <th class="px-6 pt-6 pb-4">Loại phản hồi</th>
           <th class="px-6 pt-6 pb-4">Nội dung</th>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-8 font-bold text-3xl">Nhân Viên</h1>
+    <h1 class="mb-8 font-bold text-3xl">Công nhân</h1>
     <div class="mb-6 flex justify-between items-center">
       <search-filter v-model="form.search" class="w-full max-w-md mr-4" @reset="reset">
         <label class="block text-gray-700">Trạng thái xoá:</label>
@@ -33,7 +33,7 @@
     <div class="bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Mã nhân viên</th>
+          <th class="px-6 pt-6 pb-4">Mã công nhân</th>
           <th class="px-6 pt-6 pb-4">Họ và tên</th>
           <th class="px-6 pt-6 pb-4">Email</th>
           <th class="px-6 pt-6 pb-4">Số điện thoại</th>
@@ -80,7 +80,7 @@
           </td>
         </tr>
         <tr v-if="nhanvien.data.length === 0">
-          <td class="border-t px-6 py-4" colspan="5">Không có nhân viên nào cả.</td>
+          <td class="border-t px-6 py-4" colspan="5">Không có công nhân nào cả.</td>
         </tr>
       </table>
     </div>
@@ -125,7 +125,7 @@ import SearchFilter from '@/Shared/SearchFilter'
 import throttle from 'lodash/throttle'
 import FileInput from '@/Shared/FileInput'
 export default {
-  metaInfo: { title: 'Nhân Viên' },
+  metaInfo: { title: 'Công nhân' },
   layout: Layout,
   components: {
     Icon,

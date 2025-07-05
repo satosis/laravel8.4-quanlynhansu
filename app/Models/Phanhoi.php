@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Phanhoi extends Model
 {
@@ -34,13 +34,15 @@ class Phanhoi extends Model
         return "Phản hồi khác";
     }
 
-
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->join('nhanvien as nv', 'phanhoi.nhanvien_id', '=', 'nv.id')
-                  ->where('nv.hovaten', 'like', '%'.$search.'%');
-        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+        $query
+            ->when($filters['search'] ?? null, function ($query, $search) {
+                $query->where('noi_dung', 'like', '%' . $search . '%');
+                if (Auth::user()->role == 0) {
+                    $query = $query->where("nhanvien_id", Auth::user()->nhanvien_id);
+                }
+            })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {
                 $query->withTrashed();
             } elseif ($trashed === 'only') {

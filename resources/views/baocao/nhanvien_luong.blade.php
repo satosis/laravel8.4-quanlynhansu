@@ -6,14 +6,14 @@
             <div id="chart-sanxuat"></div>
         </div>
         <div class="col-md-6">
-            <h4>Báo cáo số lượng nhân viên</h4>
+            <h4>Báo cáo số lượng công nhân</h4>
             <div id="chart-soluong"></div>
             <div id="chart-gioitinh" class="mt-4"></div>
         </div>
     </div>
     <div class="row mt-4">
         <div class="col-md-12">
-            <h4>Báo cáo tiền lương các nhân viên</h4>
+            <h4>Báo cáo tiền lương các công nhân</h4>
             <div id="chart-luong"></div>
         </div>
     </div>
@@ -29,14 +29,14 @@ Highcharts.chart('chart-sanxuat', {
 });
 Highcharts.chart('chart-luong', {
     chart: { type: 'column' },
-    title: { text: 'Tiền lương các nhân viên theo tháng' },
+    title: { text: 'Tiền lương các công nhân theo tháng' },
     xAxis: { categories: {!! json_encode($luong_months) !!}, title: { text: 'Tháng/Năm' } },
     yAxis: { title: { text: 'Tổng lương (VNĐ)' } },
     series: {!! json_encode($luong_series) !!}
 });
 Highcharts.chart('chart-soluong', {
     chart: { type: 'pie' },
-    title: { text: 'Trạng thái nhân viên' },
+    title: { text: 'Trạng thái công nhân' },
     series: [{
         name: 'Số lượng',
         colorByPoint: true,
@@ -48,7 +48,7 @@ Highcharts.chart('chart-soluong', {
 });
 Highcharts.chart('chart-gioitinh', {
     chart: { type: 'column' },
-    title: { text: 'Giới tính nhân viên' },
+    title: { text: 'Giới tính công nhân' },
     xAxis: { categories: ['Nam', 'Nữ'] },
     yAxis: { title: { text: 'Số lượng' } },
     series: [{

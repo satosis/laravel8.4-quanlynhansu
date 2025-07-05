@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="mb-8 font-bold text-3xl">
-      <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('nhanvien')">Nhân Viên</inertia-link>
+      <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('nhanvien')">Công nhân</inertia-link>
       <span class="text-indigo-400 font-medium">/</span> Thêm Mới
     </h1>
     <div class="bg-white rounded-md shadow overflow-hidden">
@@ -20,7 +20,7 @@
           </select-input>
           <text-input v-model="form.ngaysinh" :error="form.errors.ngaysinh" class="pr-6 pb-8 w-full lg:w-1/2" type="date" label="Ngày sinh" />
           <select-input v-model="form.role" :error="form.errors.role" class="pr-6 pb-8 w-full lg:w-1/2" label="Quyền hạn">
-            <option :value="0">Nhân viên</option>
+            <option :value="0">Công nhân</option>
             <option :value="1">Tổ trưởng</option>
             <option :value="2">Quản trị viên</option>
           </select-input>
@@ -47,7 +47,7 @@ import TextInput from '@/Shared/TextInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 export default {
-  metaInfo: { title: 'Thêm Mới Nhân Viên' },
+  metaInfo: { title: 'Thêm Mới Công nhân' },
   components: {
     FileInput,
     LoadingButton,
@@ -56,7 +56,7 @@ export default {
   },
   layout: Layout,
   props: {
-   
+
   },
   remember: 'form',
   data() {

@@ -16,7 +16,7 @@
           <text-input v-model="user.hovaten" class="pr-6 pb-8 w-full lg:w-1/2" label="Họ và tên" disabled/>
           <text-input :disabled="$page.props.auth.user.role == 2 ? false : true" v-model="form.email" :error="form.errors.email" class="pr-6 pb-8 w-full lg:w-1/2" label="Email" />
           <select-input :disabled="$page.props.auth.user.role == 2 ? false : true" v-model="form.role" :error="form.errors.role" class="pr-6 pb-8 w-full lg:w-1/2" label="Quyền hạn">
-            <option :value="0">Nhân viên</option>
+            <option :value="0">Công nhân</option>
             <option :value="1">Quản lý</option>
             <option :value="2">Quản trị viên</option>
           </select-input>

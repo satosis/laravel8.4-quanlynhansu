@@ -17,7 +17,7 @@
             <option :value="null">- Chọn -</option>
             <option v-for="pc in danhmuc" :key="pc.id" :value="pc.id">{{ pc.tensanpham }}</option>
           </select-input>
-          <select-input v-model="form.nhanvien" :error="form.errors.nhanvien" class="pr-6 sp-8 pb-8 w-full lg:w-1/2" label="Nhân viên">
+          <select-input v-model="form.nhanvien" :error="form.errors.nhanvien" class="pr-6 sp-8 pb-8 w-full lg:w-1/2" label="Công nhân">
             <option :value="null">- Chọn -</option>
             <option v-for="sp in nhanviens" :key="sp.id" :value="sp.id">{{ sp.hovaten }}</option>
           </select-input>

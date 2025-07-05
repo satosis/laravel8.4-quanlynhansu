@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class NhanLuong extends Model
 {
@@ -43,15 +43,14 @@ class NhanLuong extends Model
         $count = 0;
 
         $data = (new SanPham())
-        ->with("danhmuc")
-        ->where(function($query) use ($nhanvien_id, $month, $year) {
-            return $query
-            ->where('nhanvien_id', $nhanvien_id)
-            ->whereYear('ngay_san_xuat', $year)
-            ->whereMonth('ngay_san_xuat', $month);
-        })->get();
-        foreach ($data as $value)
-        {
+            ->with("danhmuc")
+            ->where(function ($query) use ($nhanvien_id, $month, $year) {
+                return $query
+                    ->where('nhanvien_id', $nhanvien_id)
+                    ->whereYear('ngay_san_xuat', $year)
+                    ->whereMonth('ngay_san_xuat', $month);
+            })->get();
+        foreach ($data as $value) {
             $count += $value->so_luong_dat * ($value->danhmuc->gia_tien) - $value->so_luong_khong_dat * ($value->danhmuc->gia_tien);
         }
 
@@ -60,25 +59,27 @@ class NhanLuong extends Model
 
     public function getThuongPhat($nhanvien_id, $month, $year, $loai = 1)
     {
-        $tong = 0;
+        $tong       = 0;
         $thuongphat = (new ThuongPhat())->where('nhanvien_id', $nhanvien_id)
-        ->where('loai', $loai)
-        ->where('thang', $month)
-        ->where('nam', $year)
-        ->get();
-        foreach ($thuongphat as $value)
+            ->where('loai', $loai)
+            ->where('thang', $month)
+            ->where('nam', $year)
+            ->get();
+        foreach ($thuongphat as $value) {
             $tong += $value['sotien'];
+        }
+
         return $tong;
     }
 
     // thuclinh = (luongcb*heso + luongcb*heso*phucap)/ngaycongchuan*ngaycongthucte - ungtien (+-) thuongphat
     public function tinhluong($nhanvien_id, $month, $year)
     {
-        $arr = [];
-        $arr['thuong'] = $this->getThuongPhat($nhanvien_id, $month, $year, 1);
-        $arr['phat'] = $this->getThuongPhat($nhanvien_id, $month, $year, 0);
-        $arr['tien_sp'] = $this->getSoSanPham($nhanvien_id, $month, $year);
-        $arr['thuclinh'] = (int)( $arr['tien_sp'] + $arr['thuong'] - $arr['phat'] );
+        $arr             = [];
+        $arr['thuong']   = $this->getThuongPhat($nhanvien_id, $month, $year, 1);
+        $arr['phat']     = $this->getThuongPhat($nhanvien_id, $month, $year, 0);
+        $arr['tien_sp']  = $this->getSoSanPham($nhanvien_id, $month, $year);
+        $arr['thuclinh'] = (int) ($arr['tien_sp'] + $arr['thuong'] - $arr['phat']);
         $arr['thuclinh'] = $arr['thuclinh'] <= 0 ? 0 : floor($arr['thuclinh']);
         return $arr;
     }
@@ -92,11 +93,14 @@ class NhanLuong extends Model
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->join('nhanvien as nv', 'nhanluong.nhanvien_id', '=', 'nv.id')
-                  ->where('nv.hovaten', 'like', '%'.$search.'%');
+                ->where('nv.hovaten', 'like', '%' . $search . '%');
+            if (Auth::user()->role == 0) {
+                $query = $query->where("nv.id", Auth::user()->nhanvien_id);
+            }
         })->when($filters['ngayluong'] ?? null, function ($query, $ngayluong) {
             $ngayluong = explode('-', $ngayluong);
             $query->where('thang', $ngayluong[1])
-                  ->where('nam', $ngayluong[0]);
+                ->where('nam', $ngayluong[0]);
         })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {
                 $query->withTrashed();

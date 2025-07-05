@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\ChamCong;
@@ -8,29 +7,32 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
 
 class ChamCongController extends Controller
 {
     public function index()
     {
-        if (empty(Request::get('nhanvien')) && Auth::user()->nhanvien->id !== Request::get('nhanvien'))
+        if (empty(Request::get('nhanvien')) && Auth::user()->nhanvien->id !== Request::get('nhanvien')) {
             return abort(404);
+        }
 
+        $chamcong = ChamCong::latest('chamcong.created_at')
+            ->filter(Request::only('search', 'trashed', 'nhanvien'));
+        if (! Auth::user()->role) {
+            $chamcong = $chamcong->where("nhanvien_id", Auth::user()->nhanvien_id);
+        }
+        $chamcong = $chamcong->paginate(10)
+            ->withQueryString()
+            ->through(fn($chamcong) => [
+                'id'         => $chamcong->id,
+                'hovaten'    => $chamcong->nhanvien->hovaten,
+                'created_at' => date('d-m-Y', strtotime($chamcong->created_at)),
+                'deleted_at' => $chamcong->deleted_at,
+            ]);
         return Inertia::render('ChamCong/Index', [
-            'filters' => Request::all('search', 'trashed', 'nhanvien'),
-            'chamcong' => (new ChamCong())
-                ->latest('chamcong.created_at')
-                ->filter(Request::only('search', 'trashed', 'nhanvien'))
-                ->paginate(10)
-                ->withQueryString()
-                ->through(fn ($chamcong) => [
-                    'id' => $chamcong->id,
-                    'hovaten' => $chamcong->nhanvien->hovaten,
-                    'created_at' => date('d-m-Y', strtotime($chamcong->created_at)),
-                    'deleted_at' => $chamcong->deleted_at,
-                ]),
+            'filters'  => Request::all('search', 'trashed', 'nhanvien'),
+            'chamcong' => $chamcong,
         ]);
     }
 
@@ -38,22 +40,21 @@ class ChamCongController extends Controller
     {
         return Inertia::render('ChamCong/Create', [
             'nhanvien' => [
-                'id' => $nhanvien->id,
-                'hovaten' => $nhanvien->hovaten
-            ]
+                'id'      => $nhanvien->id,
+                'hovaten' => $nhanvien->hovaten,
+            ],
         ]);
     }
-
 
     public function store(NhanVien $nhanvien)
     {
         Request::validate([
-            'created_at' => ['required', 'date', Rule::unique('chamcong')->where('nhanvien_id', $nhanvien->id)]
+            'created_at' => ['required', 'date', Rule::unique('chamcong')->where('nhanvien_id', $nhanvien->id)],
         ]);
 
         (new ChamCong())->create([
             'nhanvien_id' => $nhanvien->id,
-            'created_at' => Request::get('created_at')
+            'created_at'  => Request::get('created_at'),
         ]);
 
         return Redirect::route('chamcong', ['nhanvien' => $nhanvien->id])->with('success', 'Đã tạo thành công.');
@@ -63,11 +64,11 @@ class ChamCongController extends Controller
     {
         return Inertia::render('ChamCong/Edit', [
             'nhanvien' => [
-                'id' => $chamcong->nhanvien->id,
-                'hovaten' => $chamcong->nhanvien->hovaten
+                'id'      => $chamcong->nhanvien->id,
+                'hovaten' => $chamcong->nhanvien->hovaten,
             ],
             'chamcong' => [
-                'id' => $chamcong->id,
+                'id'         => $chamcong->id,
                 'created_at' => date('Y-m-d', strtotime($chamcong->created_at)),
                 'deleted_at' => $chamcong->deleted_at,
             ],
@@ -77,7 +78,7 @@ class ChamCongController extends Controller
     public function update(ChamCong $chamcong)
     {
         Request::validate([
-            'created_at' => ['required', 'date', Rule::unique('chamcong')->where('nhanvien_id', $chamcong->nhanvien->id)->ignore($chamcong->id)]
+            'created_at' => ['required', 'date', Rule::unique('chamcong')->where('nhanvien_id', $chamcong->nhanvien->id)->ignore($chamcong->id)],
         ]);
 
         $chamcong->update(Request::only('created_at'));

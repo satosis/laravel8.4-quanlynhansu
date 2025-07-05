@@ -2,7 +2,7 @@
   <div>
     <div class="mb-8 flex justify-between items-center">
       <h1 class="font-bold text-3xl">
-        <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('nhanvien')">Nhân Viên</inertia-link>
+        <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('nhanvien')">Công nhân</inertia-link>
         <span class="text-indigo-400 font-medium">/</span>
         {{ form.hovaten }}
       </h1>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <trashed-message v-if="nhanvien.deleted_at" class="mb-6" @restore="restore">
-      Nhân viên này đã bị xoá.
+      Công nhân này đã bị xoá.
     </trashed-message>
     <div class="bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
@@ -41,14 +41,14 @@
           <text-input v-model="form.diachi" :error="form.errors.diachi" class="pr-6 pb-8 w-full lg:w-1/2" label="Địa chỉ" />
           <text-input v-model="form.quequan" :error="form.errors.quequan" class="pr-6 pb-8 w-full lg:w-1/2" label="Quê quán" />
           <select-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.role" :error="form.errors.role" class="pr-6 pb-8 w-full lg:w-1/2" label="Quyền hạn">
-            <option :value="0">Nhân viên</option>
+            <option :value="0">Công nhân</option>
             <option :value="1">Tổ trưởng</option>
             <option :value="2">Quản trị viên</option>
           </select-input>
           <file-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.photo" :error="form.errors.photo" class="pr-6 pb-8 w-full lg:w-1/2" type="file" accept="image/*" label="Ảnh đại diện" />
         </div>
         <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center">
-          <button v-if="!nhanvien.deleted_at && $page.props.auth.user.role == 2 && $page.props.auth.user.id != nhanvien.user_id" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Xoá Nhân Viên</button>
+          <button v-if="!nhanvien.deleted_at && $page.props.auth.user.role == 2 && $page.props.auth.user.id != nhanvien.user_id" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Xoá Công nhân</button>
           <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Cập Nhật</loading-button>
         </div>
       </form>

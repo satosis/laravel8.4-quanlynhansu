@@ -53,7 +53,7 @@ class BangChamCongController extends Controller
         $chamcong = new ChamCong();
 
         if (count($list) <= 0)
-            return Redirect::back()->with('error', 'Bạn chưa chọn chấm công cho nhân viên nào cả.');
+            return Redirect::back()->with('error', 'Bạn chưa chọn chấm công cho công nhân nào cả.');
 
         foreach ($list as $id => $isTrue)
         {
@@ -65,6 +65,6 @@ class BangChamCongController extends Controller
             }
         }
 
-        return Redirect::back()->with('success', 'Chấm công cho nhân viên thành công.');
+        return Redirect::back()->with('success', 'Chấm công cho công nhân thành công.');
     }
 }

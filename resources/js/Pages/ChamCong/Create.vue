@@ -23,7 +23,7 @@ import TextInput from '@/Shared/TextInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 export default {
-  metaInfo: { title: 'Chấm Công Nhân Viên' },
+  metaInfo: { title: 'Chấm Công Công nhân' },
   components: {
     LoadingButton,
     SelectInput,

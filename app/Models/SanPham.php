@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class SanPham extends Model
 {
@@ -48,10 +49,14 @@ class SanPham extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->join('nhanvien as nv', 'san_phams.nhanvien_id', '=', 'nv.id')
-                  ->where('nv.hovaten', 'like', '%'.$search.'%');
+            $query->join('nhanvien', 'san_phams.nhanvien_id', '=', 'nhanvien.id')
+                ->join('danhmuc', 'san_phams.danhmuc_id', '=', 'danhmuc.id')
+                ->where(function ($q) use ($search) {
+                    $q->where('nhanvien.hovaten', 'LIKE', "%{$search}%")
+                        ->orWhere('danhmuc.tensanpham', 'LIKE', "%{$search}%");
+                });
             if ( Auth::user()->role == 0) {
-                $query = $query->where("nv.id", Auth::user()->nhanvien_id);
+                $query = $query->where("nhanvien.id", Auth::user()->nhanvien_id);
             }
         })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {
