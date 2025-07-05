@@ -43,7 +43,9 @@ Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
-
+Route::get('/baocao', [DashboardController::class, 'baocao'])
+    ->name('baocao')
+    ->middleware('auth');
 // Users
 
 Route::get('users', [UsersController::class, 'index'])

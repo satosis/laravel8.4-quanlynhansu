@@ -10,7 +10,7 @@
           <option value="with">Tất cả</option>
         </select>
       </search-filter>
-      <inertia-link class="btn-indigo" :href="route('sanpham.create')">
+      <inertia-link v-if="$page.props.auth.user.role == 1" class="btn-indigo" :href="route('sanpham.create')">
         <span>Tạo Mới</span>
       </inertia-link>
     </div>
