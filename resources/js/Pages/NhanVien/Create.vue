@@ -19,44 +19,6 @@
             <option :value="1">Đang làm việc</option>
           </select-input>
           <text-input v-model="form.ngaysinh" :error="form.errors.ngaysinh" class="pr-6 pb-8 w-full lg:w-1/2" type="date" label="Ngày sinh" />
-          <text-input v-model="form.hesoluong" :error="form.errors.hesoluong" class="pr-6 pb-8 w-full lg:w-1/2" label="Hệ số lương" />
-          <select-input v-model="form.phucap" :error="form.errors.phucap" class="pr-6 pb-8 w-full lg:w-1/2" label="Phòng ban -> chức vụ">
-            <option :value="null">- Chọn -</option>
-            <option v-for="pc in phucap" :key="pc.id" :value="pc.id">{{ pc.tenpb }} -> {{ pc.tencv }}</option>
-          </select-input>
-          <select-input v-model="form.bacluong" :error="form.errors.bacluong" class="pr-6 pb-8 w-full lg:w-1/2" label="Bậc lương">
-            <option :value="null">- Chọn -</option>
-            <option :value="1">Bậc 1</option>
-            <option :value="2">Bậc 2</option>
-            <option :value="3">Bậc 3</option>
-            <option :value="4">Bậc 4</option>
-            <option :value="5">Bậc 5</option>
-            <option :value="6">Bậc 6</option>
-            <option :value="7">Bậc 7</option>
-            <option :value="8">Bậc 8</option>
-            <option :value="9">Bậc 9</option>
-            <option :value="10">Bậc 10</option>
-          </select-input>
-          <select-input v-model="form.bangcap" :error="form.errors.bangcap" class="pr-6 pb-8 w-full lg:w-1/2" label="Bằng cấp">
-            <option :value="null">- Chọn -</option>
-            <option v-for="bc in bangcap" :key="bc.id" :value="bc.id">{{ bc.tenbc }}</option>
-          </select-input>
-          <select-input v-model="form.ngoaingu" :error="form.errors.ngoaingu" class="pr-6 pb-8 w-full lg:w-1/2" label="Ngoại ngữ">
-            <option :value="null">- Chọn -</option>
-            <option v-for="ng in ngoaingu" :key="ng.id" :value="ng.id">{{ ng.tenng }}</option>
-          </select-input>
-          <select-input v-model="form.chuyenmon" :error="form.errors.chuyenmon" class="pr-6 pb-8 w-full lg:w-1/2" label="Chuyên môn">
-            <option :value="null">- Chọn -</option>
-            <option v-for="cm in chuyenmon" :key="cm.id" :value="cm.id">{{ cm.tencm }}</option>
-          </select-input>
-          <select-input v-model="form.tongiao" :error="form.errors.tongiao" class="pr-6 pb-8 w-full lg:w-1/2" label="Tôn giáo">
-            <option :value="null">- Chọn -</option>
-            <option v-for="tg in tongiao" :key="tg.id" :value="tg.id">{{ tg.tentg }}</option>
-          </select-input>
-          <select-input v-model="form.dantoc" :error="form.errors.dantoc" class="pr-6 pb-8 w-full lg:w-1/2" label="Dân tộc">
-            <option :value="null">- Chọn -</option>
-            <option v-for="td in dantoc" :key="td.id" :value="td.id">{{ td.tendt }}</option>
-          </select-input>
           <select-input v-model="form.role" :error="form.errors.role" class="pr-6 pb-8 w-full lg:w-1/2" label="Quyền hạn">
             <option :value="0">Nhân viên</option>
             <option :value="1">Tổ trưởng</option>
@@ -94,25 +56,14 @@ export default {
   },
   layout: Layout,
   props: {
-    phucap: Array,
-    bangcap: Array,
-    chuyenmon: Array,
-    ngoaingu: Array,
-    tongiao: Array,
-    dantoc: Array
+   
   },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        phucap: null,
-        bangcap: null,
-        ngoaingu: null,
-        chuyenmon: null,
         hovaten: null,
         gioitinh: null,
-        tongiao: null,
-        dantoc: null,
         trangthai: null,
         role: null,
         ngaysinh: null,
@@ -122,8 +73,6 @@ export default {
         cmnd: null,
         diachi: null,
         quequan: null,
-        bacluong: null,
-        hesoluong: null,
         photo: null,
       }),
     }

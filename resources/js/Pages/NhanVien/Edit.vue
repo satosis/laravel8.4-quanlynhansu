@@ -7,13 +7,13 @@
         {{ form.hovaten }}
       </h1>
       <div>
-        <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('thuongphat.create', nhanvien.id)">
+        <inertia-link v-if="$page.props.auth.user.role == 1" class="btn-indigo" :href="route('thuongphat.create', nhanvien.id)">
             <span>Thưởng Phạt</span>
         </inertia-link>
-        <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('nghiviec.create', nhanvien.id)">
-            <span>Nghỉ Việc</span>
+        <inertia-link v-if="$page.props.auth.user.role"  class="btn-indigo" :href="route('nhanluong.create', nhanvien.id)">
+            <span>Nhận Lương</span>
         </inertia-link>
-        <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('chamcong', { nhanvien: nhanvien.id })">
+        <inertia-link v-if="$page.props.auth.user.role == 1"  class="btn-indigo" :href="route('chamcong', { nhanvien: nhanvien.id })">
             <span>Chấm Công</span>
         </inertia-link>
       </div>
@@ -36,44 +36,6 @@
             <option :value="1">Đang làm việc</option>
           </select-input>
           <text-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.ngaysinh" :error="form.errors.ngaysinh" class="pr-6 pb-8 w-full lg:w-1/2" type="date" label="Ngày sinh" />
-          <text-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.hesoluong" :error="form.errors.hesoluong" class="pr-6 pb-8 w-full lg:w-1/2" label="Hệ số lương" />
-          <select-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.phucap" :error="form.errors.phucap" class="pr-6 pb-8 w-full lg:w-1/2" label="Phòng ban -> chức vụ">
-            <option :value="null">- Chọn -</option>
-            <option v-for="pc in phucap" :key="pc.id" :value="pc.id">{{ pc.tenpb }} -> {{ pc.tencv }}</option>
-          </select-input>
-          <select-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.bacluong" :error="form.errors.bacluong" class="pr-6 pb-8 w-full lg:w-1/2" label="Bậc lương">
-            <option :value="null">- Chọn -</option>
-            <option :value="1">Bậc 1</option>
-            <option :value="2">Bậc 2</option>
-            <option :value="3">Bậc 3</option>
-            <option :value="4">Bậc 4</option>
-            <option :value="5">Bậc 5</option>
-            <option :value="6">Bậc 6</option>
-            <option :value="7">Bậc 7</option>
-            <option :value="8">Bậc 8</option>
-            <option :value="9">Bậc 9</option>
-            <option :value="10">Bậc 10</option>
-          </select-input>
-          <select-input v-model="form.bangcap" :error="form.errors.bangcap" class="pr-6 pb-8 w-full lg:w-1/2" label="Bằng cấp">
-            <option :value="null">- Chọn -</option>
-            <option v-for="bc in bangcap" :key="bc.id" :value="bc.id">{{ bc.tenbc }}</option>
-          </select-input>
-          <select-input v-model="form.ngoaingu" :error="form.errors.ngoaingu" class="pr-6 pb-8 w-full lg:w-1/2" label="Ngoại ngữ">
-            <option :value="null">- Chọn -</option>
-            <option v-for="ng in ngoaingu" :key="ng.id" :value="ng.id">{{ ng.tenng }}</option>
-          </select-input>
-          <select-input v-model="form.chuyenmon" :error="form.errors.chuyenmon" class="pr-6 pb-8 w-full lg:w-1/2" label="Chuyên môn">
-            <option :value="null">- Chọn -</option>
-            <option v-for="cm in chuyenmon" :key="cm.id" :value="cm.id">{{ cm.tencm }}</option>
-          </select-input>
-          <select-input v-model="form.tongiao" :error="form.errors.tongiao" class="pr-6 pb-8 w-full lg:w-1/2" label="Tôn giáo">
-            <option :value="null">- Chọn -</option>
-            <option v-for="tg in tongiao" :key="tg.id" :value="tg.id">{{ tg.tentg }}</option>
-          </select-input>
-          <select-input v-model="form.dantoc" :error="form.errors.dantoc" class="pr-6 pb-8 w-full lg:w-1/2" label="Dân tộc">
-            <option :value="null">- Chọn -</option>
-            <option v-for="td in dantoc" :key="td.id" :value="td.id">{{ td.tendt }}</option>
-          </select-input>
           <text-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.sdt" :error="form.errors.sdt" class="pr-6 pb-8 w-full lg:w-1/2" label="Số điện thoại" />
           <text-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.cmnd" :error="form.errors.cmnd" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="CMND" />
           <text-input v-model="form.diachi" :error="form.errors.diachi" class="pr-6 pb-8 w-full lg:w-1/2" label="Địa chỉ" />
@@ -83,7 +45,7 @@
             <option :value="1">Tổ trưởng</option>
             <option :value="2">Quản trị viên</option>
           </select-input>
-          <file-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.photo" :error="form.errors.photo" class="pr-6 pb-8 w-full lg:w-1/1" type="file" accept="image/*" label="Ảnh đại diện" />
+          <file-input :disabled="$page.props.auth.user.role > 0 ? false : true" v-model="form.photo" :error="form.errors.photo" class="pr-6 pb-8 w-full lg:w-1/2" type="file" accept="image/*" label="Ảnh đại diện" />
         </div>
         <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center">
           <button v-if="!nhanvien.deleted_at && $page.props.auth.user.role == 2 && $page.props.auth.user.id != nhanvien.user_id" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Xoá Nhân Viên</button>
@@ -91,190 +53,7 @@
         </div>
       </form>
     </div>
-    <div class="mt-12 flex justify-between items-center">
-      <h1 class="font-bold text-3xl">Bảo Hiểm</h1>
-      <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('baohiem.create', nhanvien.id)">
-        <span>Thêm Mới</span>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mt-6 bg-white rounded shadow overflow-x-auto">
-      <table class="w-full whitespace-nowrap">
-        <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Mã số</th>
-          <th class="px-6 pt-6 pb-4">Loại bảo hiểm</th>
-          <th class="px-6 pt-6 pb-4">Ngày cấp</th>
-          <th class="px-6 pt-6 pb-4">Ngày hết hạn</th>
-          <th class="px-6 pt-6 pb-4" colspan="2">Mức đóng</th>
-        </tr>
-        <tr v-for="bh in baohiem" :key="bh.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('baohiem.edit', bh.id)">
-              {{ bh.maso }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" :href="route('baohiem.edit', bh.id)" tabindex="-1">
-              {{ bh.tenbh }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" :href="route('baohiem.edit', bh.id)" tabindex="-1">
-              {{ bh.ngaycap }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" :href="route('baohiem.edit', bh.id)" tabindex="-1">
-              {{ bh.ngayhethan }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" :href="route('baohiem.edit', bh.id)" tabindex="-1">
-              {{ bh.mucdong }}
-            </inertia-link>
-          </td>
-          <td class="border-t w-px">
-            <inertia-link class="px-4 flex items-center" :href="route('baohiem.edit', bh.id)" tabindex="-1">
-              <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
-            </inertia-link>
-          </td>
-        </tr>
-        <tr v-if="baohiem.length === 0">
-          <td class="border-t px-6 py-4" colspan="5">Chưa có bảo hiểm nào cả.</td>
-        </tr>
-      </table>
-    </div>
-    <div v-else class="mt-6 bg-white rounded shadow overflow-x-auto">
-      <table class="w-full whitespace-nowrap">
-        <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Mã số</th>
-          <th class="px-6 pt-6 pb-4">Loại bảo hiểm</th>
-          <th class="px-6 pt-6 pb-4">Ngày cấp</th>
-          <th class="px-6 pt-6 pb-4">Ngày hết hạn</th>
-          <th class="px-6 pt-6 pb-4" colspan="2">Mức đóng</th>
-        </tr>
-        <tr v-for="bh in baohiem" :key="bh.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" href="#">
-              {{ bh.maso }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" href="#" tabindex="-1">
-              {{ bh.tenbh }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" href="#" tabindex="-1">
-              {{ bh.ngaycap }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" href="#" tabindex="-1">
-              {{ bh.ngayhethan }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" href="#" tabindex="-1">
-              {{ bh.mucdong }}
-            </inertia-link>
-          </td>
-          <td class="border-t w-px">
-            <inertia-link class="px-4 flex items-center" href="#" tabindex="-1">
-              <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
-            </inertia-link>
-          </td>
-        </tr>
-        <tr v-if="baohiem.length === 0">
-          <td class="border-t px-6 py-4" colspan="5">Chưa có bảo hiểm nào cả.</td>
-        </tr>
-      </table>
-    </div>
-    <div class="mt-12 flex justify-between items-center">
-      <h1 class="font-bold text-3xl">Hợp Đồng</h1>
-      <inertia-link v-if="$page.props.auth.user.role > 0" class="btn-indigo" :href="route('hopdong.create', nhanvien.id)">
-        <span>Thêm Mới</span>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mt-6 bg-white rounded shadow overflow-x-auto">
-        <table class="w-full whitespace-nowrap">
-        <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Mã hợp đồng</th>
-          <th class="px-6 pt-6 pb-4">Loại hợp đồng</th>
-          <th class="px-6 pt-6 pb-4">Ngày bắt đầu</th>
-          <th class="px-6 pt-6 pb-4" colspan="2">Ngày kết thúc</th>
-        </tr>
-        <tr v-for="hd in hopdong" :key="hd.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('hopdong.edit', hd.id)">
-              {{ hd.mahd }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('hopdong.edit', hd.id)">
-              {{ hd.loaihopdong ? 'Hợp đồng chính thức' : 'Hợp đồng thử việc' }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('hopdong.edit', hd.id)">
-              {{ hd.ngaybd }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('hopdong.edit', hd.id)">
-              {{ hd.ngaykt }}
-            </inertia-link>
-          </td>
-          <td class="border-t w-px">
-            <inertia-link class="px-4 flex items-center" :href="route('hopdong.edit', hd.id)" tabindex="-1">
-              <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
-            </inertia-link>
-          </td>
-        </tr>
-        <tr v-if="hopdong.length === 0">
-          <td class="border-t px-6 py-4" colspan="4">Chưa có hợp đồng nào cả.</td>
-        </tr>
-      </table>
-    </div>
-    <div v-else class="mt-6 bg-white rounded shadow overflow-x-auto">
-      <table class="w-full whitespace-nowrap">
-        <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Mã hợp đồng</th>
-          <th class="px-6 pt-6 pb-4">Loại hợp đồng</th>
-          <th class="px-6 pt-6 pb-4">Ngày bắt đầu</th>
-          <th class="px-6 pt-6 pb-4" colspan="2">Ngày kết thúc</th>
-        </tr>
-        <tr v-for="hd in hopdong" :key="hd.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" href="#">
-              {{ hd.mahd }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" href="#">
-              {{ hd.loaihopdong ? 'Hợp đồng chính thức' : 'Hợp đồng thử việc' }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" href="#">
-              {{ hd.ngaybd }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" href="#">
-              {{ hd.ngaykt }}
-            </inertia-link>
-          </td>
-          <td class="border-t w-px">
-            <inertia-link class="px-4 flex items-center" href="#" tabindex="-1">
-              <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
-            </inertia-link>
-          </td>
-        </tr>
-        <tr v-if="hopdong.length === 0">
-          <td class="border-t px-6 py-4" colspan="4">Chưa có hợp đồng nào cả.</td>
-        </tr>
-      </table>
-    </div>
+
   </div>
 </template>
 
@@ -303,37 +82,21 @@ export default {
   },
   layout: Layout,
   props: {
-    phucap: Array,
-    bangcap: Array,
-    chuyenmon: Array,
-    ngoaingu: Array,
-    tongiao: Array,
-    dantoc: Array,
     nhanvien: Object,
-    baohiem: Array,
-    hopdong: Array
   },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
         _method: 'put',
-        phucap: this.nhanvien.phucap,
-        bangcap: this.nhanvien.bangcap,
-        ngoaingu: this.nhanvien.ngoaingu,
-        chuyenmon: this.nhanvien.chuyenmon,
         hovaten: this.nhanvien.hovaten,
         gioitinh: this.nhanvien.gioitinh,
-        tongiao: this.nhanvien.tongiao,
-        dantoc: this.nhanvien.dantoc,
         trangthai: this.nhanvien.trangthai,
         ngaysinh: this.nhanvien.ngaysinh,
         sdt: this.nhanvien.sdt,
         cmnd: this.nhanvien.cmnd,
         diachi: this.nhanvien.diachi,
         quequan: this.nhanvien.quequan,
-        bacluong: this.nhanvien.bacluong,
-        hesoluong: this.nhanvien.hesoluong.toString(),
         photo: null,
         role: this.nhanvien.role,
       })

@@ -18,7 +18,7 @@
         <label class="mt-4 block text-gray-700">Trạng thái làm việc:</label>
         <select v-model="form.trangthai" class="mt-1 w-full form-select">
           <option :value="null">- Chưa chọn -</option>
-          <option value="danghilam">Đã nghĩ làm</option>
+          <option value="danghilam">Đã nghỉ làm</option>
           <option value="danglamviec">Đang làm việc</option>
         </select>
       </search-filter>
@@ -70,7 +70,7 @@
           </td>
           <td class="border-t">
             <inertia-link class="px-6 py-4 flex items-center" :href="route('nhanvien.edit', nv.id)" tabindex="-1">
-              {{ nv.trangthai ? 'Đang làm việc' : 'Đã nghĩ làm' }}
+              {{ nv.trangthai ? 'Đang làm việc' : 'Đã nghỉ làm' }}
             </inertia-link>
           </td>
           <td class="border-t w-px">

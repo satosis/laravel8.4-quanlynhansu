@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SanPham;
+use App\Models\DanhmucSanPham;
 use App\Models\NhanVien;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Request;
@@ -23,7 +24,7 @@ class SanPhamController extends Controller
                 ->through(fn ($sanpham) => [
                     'id' => $sanpham->id,
                     'manv' => 'NV' . str_pad($sanpham->nhanvien->id, 3, '0', STR_PAD_LEFT),
-                    'tensanpham' => $sanpham->tensanpham,
+                    'tensanpham' => $sanpham->danhmuc->tensanpham,
                     'hovaten' => $sanpham->nhanvien->hovaten,
                     'ngay_san_xuat' => $sanpham->ngay_san_xuat,
                     'so_luong_dat' => $sanpham->so_luong_dat,
@@ -39,10 +40,18 @@ class SanPhamController extends Controller
     {
        return Inertia::render('SanPham/Create', [
             'nhanviens' => (new NhanVien())
+                ->whereHas('user', function ($query) {
+                    $query->where('role', 0);
+                })
                 ->orderBy('hovaten')
                 ->get()
                 ->map
-                ->only('id', 'hovaten')
+                ->only('id', 'hovaten'),
+            'danhmuc' => (new DanhmucSanPham())
+                ->orderBy('tensanpham')
+                ->get()
+                ->map
+                ->only('id', 'tensanpham')
         ]);
     }
 
@@ -51,13 +60,13 @@ class SanPhamController extends Controller
         Request::validate([
             'nhanvien' => ['required', Rule::exists('nhanvien', 'id')],
             'ngay_san_xuat' => ['required', 'date'],
-            'tensanpham' => ['required', 'max:255'],
+            'danhmuc_id' => ['required', 'max:255'],
             'so_luong_dat' => ['required', 'max:15'],
             'so_luong_khong_dat' => ['required', 'max:15'],
         ]);
 
         (new SanPham())->create([
-            'tensanpham' => Request::get('tensanpham'),
+            'danhmuc_id' => Request::get('danhmuc_id'),
             'nhanvien_id' => Request::get('nhanvien'),
             'ngay_san_xuat' => Request::get('ngay_san_xuat'),
             'so_luong_dat' => Request::get('so_luong_dat'),
@@ -66,7 +75,7 @@ class SanPhamController extends Controller
             'nguoi_danh_gia_id' => Auth::user()->id,
         ]);
 
-        return Redirect::route('sanpham.index')->with('success', 'Đã tạo thành công.');
+        return Redirect::route('sanpham')->with('success', 'Đã tạo thành công.');
     }
 
     public function edit(SanPham $sanpham)
@@ -77,8 +86,14 @@ class SanPhamController extends Controller
                 ->get()
                 ->map
                 ->only('id', 'hovaten'),
+            'danhmuc' => (new DanhmucSanPham())
+                ->orderBy('tensanpham')
+                ->get()
+                ->map
+                ->only('id', 'tensanpham'),
             'sanpham' => [
                 'id' => $sanpham->id,
+                'danhmuc_id' => $sanpham->danhmuc_id,
                 'tensanpham' => $sanpham->tensanpham,
                 'nhanvien' => $sanpham->nhanvien_id,
                 'ngay_san_xuat' => $sanpham->ngay_san_xuat,
@@ -94,14 +109,14 @@ class SanPhamController extends Controller
     {
         Request::validate([
             'nhanvien' => ['required', Rule::exists('nhanvien', 'id')],
-            'tensanpham' => ['required', 'max:15'],
+            'danhmuc_id' => ['required', 'max:15'],
             'ngay_san_xuat' => ['required', 'date'],
             'so_luong_dat' => ['required', 'max:15'],
             'so_luong_khong_dat' => ['required', 'max:15'],
         ]);
 
         $sanpham->update([
-            'tensanpham' => Request::get('tensanpham'),
+            'danhmuc_id' => Request::get('danhmuc_id'),
             'nhanvien_id' => Request::get('nhanvien'),
             'ngay_san_xuat' => Request::get('ngay_san_xuat'),
             'so_luong_dat' => Request::get('so_luong_dat'),

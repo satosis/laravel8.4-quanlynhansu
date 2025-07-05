@@ -6,53 +6,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SanPham extends Model
+class Phanhoi extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'san_phams';
+    protected $table = 'phan_hois';
 
     public function resolveRouteBinding($value, $field = null)
     {
         return $this->where($field ?? 'id', $value)->withTrashed()->firstOrFail();
     }
-    protected $fillable = [
-        'nhan_vien_id',
-        'ngay_san_xuat',
-        'so_luong_dat',
-        'so_luong_khong_dat',
-        'ghi_chu',
-        'nguoi_danh_gia_id'
-    ];
-
-    protected $casts = [
-        'ngay_san_xuat' => 'date',
-    ];
 
     public function nhanvien()
     {
         return $this->belongsTo(NhanVien::class, 'nhanvien_id', 'id');
     }
 
-    public function nguoiDanhGia()
+    public function typePhanHoi($type)
     {
-        return $this->belongsTo(NhanVien::class, 'nguoi_danh_gia_id');
+        if ($type == 1) {
+            return "Phản hồi chấm công";
+        }
+        if ($type == 2) {
+            return "Phản hồi công việc";
+        }
+        return "Phản hồi khác";
     }
 
-    public function danhmuc()
-    {
-        return $this->belongsTo(DanhmucSanPham::class, 'danhmuc_id');
-    }
 
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->join('nhanvien as nv', 'san_phams.nhanvien_id', '=', 'nv.id')
+            $query->join('nhanvien as nv', 'phanhoi.nhanvien_id', '=', 'nv.id')
                   ->where('nv.hovaten', 'like', '%'.$search.'%');
-            if ( Auth::user()->role == 0) {
-                $query = $query->where("nv.id", Auth::user()->nhanvien_id);
-            }
         })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {
                 $query->withTrashed();

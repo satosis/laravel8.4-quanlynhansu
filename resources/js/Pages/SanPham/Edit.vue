@@ -13,7 +13,10 @@
     <div class="bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
-          <text-input v-model="form.tensanpham" :error="form.errors.tensanpham" class="pr-6 sp-8 pb-8 w-full lg:w-1/1" label="Sản phẩm" />
+          <select-input v-model="form.danhmuc_id" :error="form.errors.danhmuc_id" class="pr-6 pb-8 w-full lg:w-1/2" label="Sản phẩm">
+            <option :value="null">- Chọn -</option>
+            <option v-for="pc in danhmuc" :key="pc.id" :value="pc.id">{{ pc.tensanpham }}</option>
+          </select-input>
           <select-input v-model="form.nhanvien" :error="form.errors.nhanvien" class="pr-6 sp-8 pb-8 w-full lg:w-1/2" label="Nhân viên">
             <option :value="null">- Chọn -</option>
             <option v-for="sp in nhanviens" :key="sp.id" :value="sp.id">{{ sp.hovaten }}</option>
@@ -53,6 +56,7 @@ export default {
   },
   layout: Layout,
   props: {
+    danhmuc: Array,
     nhanviens: Array,
     sanpham: Object,
   },
@@ -61,7 +65,7 @@ export default {
     return {
       form: this.$inertia.form({
         _method: 'put',
-        tensanpham: this.sanpham.tensanpham,
+        danhmuc_id: this.sanpham.danhmuc_id,
         nhanvien: this.sanpham.nhanvien,
         ngay_san_xuat: this.sanpham.ngay_san_xuat,
         so_luong_dat: this.sanpham.so_luong_dat,

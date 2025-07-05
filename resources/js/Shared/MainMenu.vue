@@ -6,65 +6,47 @@
         <div :class="isUrl('') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Trang Chủ</div>
       </inertia-link>
     </div>
-    <div v-if="$page.props.auth.user.role == 2" class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('heso')">
-        <icon name="heso" class="w-4 h-4 mr-2" :class="isUrl('heso') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('heso') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Hệ Số</div>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role == 2" class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('phucap')">
-        <icon name="phucap" class="w-4 h-4 mr-2" :class="isUrl('phucap') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('phucap') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Phụ Cấp</div>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('baohiem')">
-        <icon name="baohiem" class="w-4 h-4 mr-2" :class="isUrl('baohiem') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('baohiem') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Bảo Hiểm</div>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('hopdong')">
-        <icon name="hopdong" class="w-4 h-4 mr-2" :class="isUrl('hopdong') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('hopdong') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Hợp Đồng</div>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('nghiviec')">
-        <icon name="nghiviec" class="w-4 h-4 mr-2" :class="isUrl('nghiviec') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('nghiviec') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Nghỉ Việc</div>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('thuongphat')">
-        <icon name="thuongphat" class="w-4 h-4 mr-2" :class="isUrl('thuongphat') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('thuongphat') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Thưởng Phạt</div>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('khautru')">
-        <icon name="khautru" class="w-4 h-4 mr-2" :class="isUrl('khautru') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('khautru') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Khẩu Trừ</div>
-      </inertia-link>
-    </div>
-    <div v-if="$page.props.auth.user.role == 2" class="mb-4">
+    <div v-if="$page.props.auth.user.role != 2" class="mb-4">
       <inertia-link class="flex items-center group py-3" :href="route('bangchamcong')">
         <icon name="chamcong" class="w-4 h-4 mr-2" :class="isUrl('bangchamcong') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
         <div :class="isUrl('bangchamcong') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Chấm Công</div>
       </inertia-link>
     </div>
-   
-    <div v-if="$page.props.auth.user.role > 0" class="mb-4">
+
+    <div v-if="$page.props.auth.user.role == 2" class="mb-4">
+      <inertia-link class="flex items-center group py-3" :href="route('nhanvien')">
+        <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('nhanvien') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('nhanvien') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Báo cáo</div>
+      </inertia-link>
+    </div>
+    <div v-if="$page.props.auth.user.role" class="mb-4">
       <inertia-link class="flex items-center group py-3" :href="route('nhanvien')">
         <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('nhanvien') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
         <div :class="isUrl('nhanvien') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Nhân Viên</div>
       </inertia-link>
     </div>
-    <div v-if="$page.props.auth.user.role > 0" class="mb-4">
+    <div v-if="$page.props.auth.user.role == 1" class="mb-4">
+      <inertia-link class="flex items-center group py-3" :href="route('thuongphat')">
+        <icon name="thuongphat" class="w-4 h-4 mr-2" :class="isUrl('thuongphat') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('thuongphat') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Thưởng Phạt</div>
+      </inertia-link>
+    </div>
+    <div v-if="$page.props.auth.user.role == 1" class="mb-4">
+      <inertia-link class="flex items-center group py-3" :href="route('danhmuc')">
+        <icon name="sanpham" class="w-4 h-4 mr-2" :class="isUrl('danhmuc') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('danhmuc') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Danh mục sản phẩm</div>
+      </inertia-link>
+    </div>
+    <div v-if="$page.props.auth.user.role != 2" class="mb-4">
       <inertia-link class="flex items-center group py-3" :href="route('sanpham')">
-        <icon name="nhanluong" class="w-4 h-4 mr-2" :class="isUrl('sanpham') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <icon name="sanpham" class="w-4 h-4 mr-2" :class="isUrl('sanpham') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
         <div :class="isUrl('sanpham') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Sản phẩm</div>
+      </inertia-link>
+    </div>
+       <div v-if="$page.props.auth.user.role != 2" class="mb-4">
+      <inertia-link class="flex items-center group py-3" :href="route('phanhoi')">
+        <icon name="phanhoi" class="w-4 h-4 mr-2" :class="isUrl('phanhoi') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('phanhoi') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Phản hồi</div>
       </inertia-link>
     </div>
   </div>

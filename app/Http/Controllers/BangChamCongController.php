@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NhanVien;
 use App\Models\ChamCong;
-use App\Models\NghiViec;
+use App\Models\Phanhoi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
@@ -16,6 +16,9 @@ class BangChamCongController extends Controller
 {
     public function index()
     {
+        if (!Auth::user()->role) {
+          return Redirect::route('chamcong', ['nhanvien' => Auth::user()->nhanvien_id]);
+        }
         if (!empty(Request::get('ngaycong')) && preg_match('/([0-9]{4,4}+)\-([0-9]{2,2}+)\-([0-9]{2,2}+)/', Request::get('ngaycong')))
             $ngaycong = Request::get('ngaycong');
         else
@@ -35,7 +38,6 @@ class BangChamCongController extends Controller
                     'manv' => 'NV' . str_pad($nhanvien->id, 3, '0', STR_PAD_LEFT),
                     'hovaten' => $nhanvien->hovaten,
                     'email' => $nhanvien->user->email,
-                    'nghiviec' => (new NghiViec())->checkNgayNghi($nhanvien->id, $ngaycong)
                 ]),
         ]);
     }
@@ -55,20 +57,6 @@ class BangChamCongController extends Controller
 
         foreach ($list as $id => $isTrue)
         {
-            if (empty(Auth::user()->nhanvien->isNgayCong($id + 1, $ngaycong)))
-            {
-                if ($isTrue)
-                {
-                    if (!(new NghiViec())->checkNgayNghi($id + 1, $ngaycong))
-                    {
-                        $chamcong->create([
-                            'nhanvien_id' => $id + 1,
-                            'created_at' => $ngaycong . ' 00:00:00'
-                        ]);
-                    }
-                }
-            }
-            else
             {
                 if (!$isTrue)
                 {

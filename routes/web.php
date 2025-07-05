@@ -6,24 +6,11 @@ use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\ChamCongController;
-use App\Http\Controllers\BangCapController;
-use App\Http\Controllers\ChucVuController;
-use App\Http\Controllers\ChuyenMonController;
-use App\Http\Controllers\DanTocController;
-use App\Http\Controllers\LoaiBaoHiemController;
-use App\Http\Controllers\NgoaiNguController;
-use App\Http\Controllers\PhongBanController;
-use App\Http\Controllers\TonGiaoController;
-use App\Http\Controllers\PhuCapController;
-use App\Http\Controllers\BaoHiemController;
-use App\Http\Controllers\HopDongController;
-use App\Http\Controllers\UngLuongController;
-use App\Http\Controllers\NghiViecController;
+use App\Http\Controllers\PhanhoiController;
 use App\Http\Controllers\ThuongPhatController;
-use App\Http\Controllers\HeSoController;
 use App\Http\Controllers\BangChamCongController;
+use App\Http\Controllers\DanhmucSanphamController;
 use App\Http\Controllers\NhanLuongController;
-use App\Http\Controllers\KhauTruController;
 use App\Http\Controllers\SanPhamController;
 use Illuminate\Support\Facades\Route;
 
@@ -98,8 +85,7 @@ Route::post('nhanvien', [NhanVienController::class, 'store'])
     ->middleware('check_to_truong_login');
 
 Route::get('nhanvien/{nhanvien}/edit', [NhanVienController::class, 'edit'])
-    ->name('nhanvien.edit')
-    ->middleware('check_to_truong_login');
+    ->name('nhanvien.edit');
 
 Route::put('nhanvien/{nhanvien}', [NhanVienController::class, 'update'])
     ->name('nhanvien.update')
@@ -138,7 +124,7 @@ Route::get('chamcong/{nhanvien}/create', [ChamCongController::class, 'create'])
 
 Route::get('chamcong/{chamcong}/edit', [ChamCongController::class, 'edit'])
     ->name('chamcong.edit')
-    ->middleware('auth');
+    ->middleware('check_to_truong_login');
 
 Route::post('chamcong/{nhanvien}', [ChamCongController::class, 'store'])
     ->name('chamcong.store')
@@ -217,303 +203,6 @@ Route::put('chucvu/{chucvu}/restore', [ChucVuController::class, 'restore'])
     ->name('chucvu.restore')
     ->middleware('check_admin_login');
 
-// ChuyenMon
-
-Route::get('chuyenmon', [ChuyenMonController::class, 'index'])
-    ->name('chuyenmon')
-    ->middleware('check_admin_login');
-
-Route::get('chuyenmon/create', [ChuyenMonController::class, 'create'])
-    ->name('chuyenmon.create')
-    ->middleware('check_admin_login');
-
-Route::post('chuyenmon', [ChuyenMonController::class, 'store'])
-    ->name('chuyenmon.store')
-    ->middleware('check_admin_login');
-
-Route::get('chuyenmon/{chuyenmon}/edit', [ChuyenMonController::class, 'edit'])
-    ->name('chuyenmon.edit')
-    ->middleware('check_admin_login');
-
-Route::put('chuyenmon/{chuyenmon}', [ChuyenMonController::class, 'update'])
-    ->name('chuyenmon.update')
-    ->middleware('check_admin_login');
-
-Route::delete('chuyenmon/{chuyenmon}', [ChuyenMonController::class, 'destroy'])
-    ->name('chuyenmon.destroy')
-    ->middleware('check_admin_login');
-
-Route::put('chuyenmon/{chuyenmon}/restore', [ChuyenMonController::class, 'restore'])
-    ->name('chuyenmon.restore')
-    ->middleware('check_admin_login');
-
-// DanToc
-
-Route::get('dantoc', [DanTocController::class, 'index'])
-    ->name('dantoc')
-    ->middleware('check_admin_login');
-
-Route::get('dantoc/create', [DanTocController::class, 'create'])
-    ->name('dantoc.create')
-    ->middleware('check_admin_login');
-
-Route::post('dantoc', [DanTocController::class, 'store'])
-    ->name('dantoc.store')
-    ->middleware('check_admin_login');
-
-Route::get('dantoc/{dantoc}/edit', [DanTocController::class, 'edit'])
-    ->name('dantoc.edit')
-    ->middleware('check_admin_login');
-
-Route::put('dantoc/{dantoc}', [DanTocController::class, 'update'])
-    ->name('dantoc.update')
-    ->middleware('check_admin_login');
-
-Route::delete('dantoc/{dantoc}', [DanTocController::class, 'destroy'])
-    ->name('dantoc.destroy')
-    ->middleware('check_admin_login');
-
-Route::put('dantoc/{dantoc}/restore', [DanTocController::class, 'restore'])
-    ->name('dantoc.restore')
-    ->middleware('check_admin_login');
-
-// LoaiBaoHiem
-
-Route::get('loaibaohiem', [LoaiBaoHiemController::class, 'index'])
-    ->name('loaibaohiem')
-    ->middleware('check_admin_login');
-
-Route::get('loaibaohiem/create', [LoaiBaoHiemController::class, 'create'])
-    ->name('loaibaohiem.create')
-    ->middleware('check_admin_login');
-
-Route::post('loaibaohiem', [LoaiBaoHiemController::class, 'store'])
-    ->name('loaibaohiem.store')
-    ->middleware('check_admin_login');
-
-Route::get('loaibaohiem/{loaibaohiem}/edit', [LoaiBaoHiemController::class, 'edit'])
-    ->name('loaibaohiem.edit')
-    ->middleware('check_admin_login');
-
-Route::put('loaibaohiem/{loaibaohiem}', [LoaiBaoHiemController::class, 'update'])
-    ->name('loaibaohiem.update')
-    ->middleware('check_admin_login');
-
-Route::delete('loaibaohiem/{loaibaohiem}', [LoaiBaoHiemController::class, 'destroy'])
-    ->name('loaibaohiem.destroy')
-    ->middleware('check_admin_login');
-
-Route::put('loaibaohiem/{loaibaohiem}/restore', [LoaiBaoHiemController::class, 'restore'])
-    ->name('loaibaohiem.restore')
-    ->middleware('check_admin_login');
-
-// BaoHiem
-Route::get('baohiem', [BaoHiemController::class, 'index'])
-    ->name('baohiem')
-    ->middleware('check_to_truong_login');
-
-Route::get('baohiem/{nhanvien}/create', [BaoHiemController::class, 'create'])
-    ->name('baohiem.create')
-    ->middleware('check_to_truong_login');
-
-Route::get('baohiem/{baohiem}/edit', [BaoHiemController::class, 'edit'])
-    ->name('baohiem.edit')
-    ->middleware('check_to_truong_login');
-
-Route::post('baohiem/{nhanvien}', [BaoHiemController::class, 'store'])
-    ->name('baohiem.store')
-    ->middleware('check_to_truong_login');
-
-Route::put('baohiem/{baohiem}', [BaoHiemController::class, 'update'])
-    ->name('baohiem.update')
-    ->middleware('check_to_truong_login');
-
-Route::delete('baohiem/{baohiem}', [BaoHiemController::class, 'destroy'])
-    ->name('baohiem.destroy')
-    ->middleware('check_to_truong_login');
-
-Route::put('baohiem/{baohiem}/restore', [BaoHiemController::class, 'restore'])
-    ->name('baohiem.restore')
-    ->middleware('check_to_truong_login');
-
-// NgoaiNgu
-
-Route::get('ngoaingu', [NgoaiNguController::class, 'index'])
-    ->name('ngoaingu')
-    ->middleware('check_admin_login');
-
-Route::get('ngoaingu/create', [NgoaiNguController::class, 'create'])
-    ->name('ngoaingu.create')
-    ->middleware('check_admin_login');
-
-Route::post('ngoaingu', [NgoaiNguController::class, 'store'])
-    ->name('ngoaingu.store')
-    ->middleware('check_admin_login');
-
-Route::get('ngoaingu/{ngoaingu}/edit', [NgoaiNguController::class, 'edit'])
-    ->name('ngoaingu.edit')
-    ->middleware('check_admin_login');
-
-Route::put('ngoaingu/{ngoaingu}', [NgoaiNguController::class, 'update'])
-    ->name('ngoaingu.update')
-    ->middleware('check_admin_login');
-
-Route::delete('ngoaingu/{ngoaingu}', [NgoaiNguController::class, 'destroy'])
-    ->name('ngoaingu.destroy')
-    ->middleware('check_admin_login');
-
-Route::put('ngoaingu/{ngoaingu}/restore', [NgoaiNguController::class, 'restore'])
-    ->name('ngoaingu.restore')
-    ->middleware('check_admin_login');
-
-// PhongBan
-
-Route::get('phongban', [PhongBanController::class, 'index'])
-    ->name('phongban')
-    ->middleware('check_admin_login');
-
-Route::get('phongban/create', [PhongBanController::class, 'create'])
-    ->name('phongban.create')
-    ->middleware('check_admin_login');
-
-Route::post('phongban', [PhongBanController::class, 'store'])
-    ->name('phongban.store')
-    ->middleware('check_admin_login');
-
-Route::get('phongban/{phongban}/edit', [PhongBanController::class, 'edit'])
-    ->name('phongban.edit')
-    ->middleware('check_admin_login');
-
-Route::put('phongban/{phongban}', [PhongBanController::class, 'update'])
-    ->name('phongban.update')
-    ->middleware('check_admin_login');
-
-Route::delete('phongban/{phongban}', [PhongBanController::class, 'destroy'])
-    ->name('phongban.destroy')
-    ->middleware('check_admin_login');
-
-Route::put('phongban/{phongban}/restore', [PhongBanController::class, 'restore'])
-    ->name('phongban.restore')
-    ->middleware('check_admin_login');
-
-// TonGiao
-
-Route::get('tongiao', [TonGiaoController::class, 'index'])
-    ->name('tongiao')
-    ->middleware('check_admin_login');
-
-Route::get('tongiao/create', [TonGiaoController::class, 'create'])
-    ->name('tongiao.create')
-    ->middleware('check_admin_login');
-
-Route::post('tongiao', [TonGiaoController::class, 'store'])
-    ->name('tongiao.store')
-    ->middleware('check_admin_login');
-
-Route::get('tongiao/{tongiao}/edit', [TonGiaoController::class, 'edit'])
-    ->name('tongiao.edit')
-    ->middleware('check_admin_login');
-
-Route::put('tongiao/{tongiao}', [TonGiaoController::class, 'update'])
-    ->name('tongiao.update')
-    ->middleware('check_admin_login');
-
-Route::delete('tongiao/{tongiao}', [TonGiaoController::class, 'destroy'])
-    ->name('tongiao.destroy')
-    ->middleware('check_admin_login');
-
-Route::put('tongiao/{tongiao}/restore', [TonGiaoController::class, 'restore'])
-    ->name('tongiao.restore')
-    ->middleware('check_admin_login');
-
-// MucLuong
-
-Route::get('phucap', [PhuCapController::class, 'index'])
-    ->name('phucap')
-    ->middleware('check_admin_login');
-
-Route::get('phucap/create', [PhuCapController::class, 'create'])
-    ->name('phucap.create')
-    ->middleware('check_admin_login');
-
-Route::post('phucap', [PhuCapController::class, 'store'])
-    ->name('phucap.store')
-    ->middleware('check_admin_login');
-
-Route::get('phucap/{phucap}/edit', [PhuCapController::class, 'edit'])
-    ->name('phucap.edit')
-    ->middleware('check_admin_login');
-
-Route::put('phucap/{phucap}', [PhuCapController::class, 'update'])
-    ->name('phucap.update')
-    ->middleware('check_admin_login');
-
-Route::delete('phucap/{phucap}', [PhuCapController::class, 'destroy'])
-    ->name('phucap.destroy')
-    ->middleware('check_admin_login');
-
-Route::put('phucap/{phucap}/restore', [PhuCapController::class, 'restore'])
-    ->name('phucap.restore')
-    ->middleware('check_admin_login');
-
-// HopDong
-Route::get('hopdong', [HopDongController::class, 'index'])
-    ->name('hopdong')
-    ->middleware('check_to_truong_login');
-
-Route::get('hopdong/{nhanvien}/create', [HopDongController::class, 'create'])
-    ->name('hopdong.create')
-    ->middleware('check_to_truong_login');
-
-Route::get('hopdong/{hopdong}/edit', [HopDongController::class, 'edit'])
-    ->name('hopdong.edit')
-    ->middleware('check_to_truong_login');
-
-Route::post('hopdong/{nhanvien}', [HopDongController::class, 'store'])
-    ->name('hopdong.store')
-    ->middleware('check_to_truong_login');
-
-Route::put('hopdong/{hopdong}', [HopDongController::class, 'update'])
-    ->name('hopdong.update')
-    ->middleware('check_to_truong_login');
-
-Route::delete('hopdong/{hopdong}', [HopDongController::class, 'destroy'])
-    ->name('hopdong.destroy')
-    ->middleware('check_to_truong_login');
-
-Route::put('hopdong/{hopdong}/restore', [HopDongController::class, 'restore'])
-    ->name('hopdong.restore')
-    ->middleware('check_to_truong_login');
-
-// UngLuong
-Route::get('ungluong', [UngLuongController::class, 'index'])
-    ->name('ungluong')
-    ->middleware('check_to_truong_login');
-
-Route::get('ungluong/{nhanvien}/create', [UngLuongController::class, 'create'])
-    ->name('ungluong.create')
-    ->middleware('check_to_truong_login');
-
-Route::get('ungluong/{ungluong}/edit', [UngLuongController::class, 'edit'])
-    ->name('ungluong.edit')
-    ->middleware('check_to_truong_login');
-
-Route::post('ungluong/{nhanvien}', [UngLuongController::class, 'store'])
-    ->name('ungluong.store')
-    ->middleware('check_to_truong_login');
-
-Route::put('ungluong/{ungluong}', [UngLuongController::class, 'update'])
-    ->name('ungluong.update')
-    ->middleware('check_to_truong_login');
-
-Route::delete('ungluong/{ungluong}', [UngLuongController::class, 'destroy'])
-    ->name('ungluong.destroy')
-    ->middleware('check_to_truong_login');
-
-Route::put('ungluong/{ungluong}/restore', [UngLuongController::class, 'restore'])
-    ->name('ungluong.restore')
-    ->middleware('check_to_truong_login');
-
 // NhanLuong
 
 Route::get('nhanluong/tinhluong', [NhanLuongController::class, 'tinhluong'])
@@ -552,57 +241,32 @@ Route::get('nhanluong/export', [NhanLuongController::class, 'export'])
     ->name('nhanluong.export')
     ->middleware('check_to_truong_login');
 
-// Khautru
-Route::get('khautru', [KhauTruController::class, 'index'])
-    ->name('khautru')
+// Phanhoi
+Route::get('phanhoi', [PhanhoiController::class, 'index'])
+    ->name('phanhoi');
+
+Route::get('phanhoi/create', [PhanhoiController::class, 'create'])
+    ->name('phanhoi.create');
+
+Route::get('phanhoi/{phanhoi}/edit', [PhanhoiController::class, 'edit'])
+    ->name('phanhoi.edit');
+
+Route::post('phanhoi', [PhanhoiController::class, 'store'])
+    ->name('phanhoi.store');
+
+Route::put('phanhoi/{phanhoi}', [PhanhoiController::class, 'update'])
+    ->name('phanhoi.update')
     ->middleware('check_to_truong_login');
 
-Route::get('khautru/{khautru}/edit', [KhauTruController::class, 'edit'])
-    ->name('khautru.edit')
+Route::delete('phanhoi/{phanhoi}', [PhanhoiController::class, 'destroy'])
+    ->name('phanhoi.destroy')
     ->middleware('check_to_truong_login');
 
-Route::put('khautru/{khautru}', [KhauTruController::class, 'update'])
-    ->name('khautru.update')
+Route::put('phanhoi/{phanhoi}/restore', [PhanhoiController::class, 'restore'])
+    ->name('phanhoi.restore')
     ->middleware('check_to_truong_login');
 
-Route::delete('khautru/{khautru}', [KhauTruController::class, 'destroy'])
-    ->name('khautru.destroy')
-    ->middleware('check_to_truong_login');
-
-Route::put('khautru/{khautru}/restore', [KhauTruController::class, 'restore'])
-    ->name('khautru.restore')
-    ->middleware('check_to_truong_login');
-
-// NghiViec
-Route::get('nghiviec', [NghiViecController::class, 'index'])
-    ->name('nghiviec')
-    ->middleware('check_to_truong_login');
-
-Route::get('nghiviec/{nhanvien}/create', [NghiViecController::class, 'create'])
-    ->name('nghiviec.create')
-    ->middleware('check_to_truong_login');
-
-Route::get('nghiviec/{nghiviec}/edit', [NghiViecController::class, 'edit'])
-    ->name('nghiviec.edit')
-    ->middleware('check_to_truong_login');
-
-Route::post('nghiviec/{nhanvien}', [NghiViecController::class, 'store'])
-    ->name('nghiviec.store')
-    ->middleware('check_to_truong_login');
-
-Route::put('nghiviec/{nghiviec}', [NghiViecController::class, 'update'])
-    ->name('nghiviec.update')
-    ->middleware('check_to_truong_login');
-
-Route::delete('nghiviec/{nghiviec}', [NghiViecController::class, 'destroy'])
-    ->name('nghiviec.destroy')
-    ->middleware('check_to_truong_login');
-
-Route::put('nghiviec/{nghiviec}/restore', [NghiViecController::class, 'restore'])
-    ->name('nghiviec.restore')
-    ->middleware('check_to_truong_login');
-
-// NghiViec
+// Thuongphat
 Route::get('thuongphat', [ThuongPhatController::class, 'index'])
     ->name('thuongphat')
     ->middleware('check_to_truong_login');
@@ -631,30 +295,17 @@ Route::put('thuongphat/{thuongphat}/restore', [ThuongPhatController::class, 'res
     ->name('thuongphat.restore')
     ->middleware('check_to_truong_login');
 
-
-// heso
-Route::get('heso', [HeSoController::class, 'index'])
-    ->name('heso')
-    ->middleware('check_admin_login');
-
-Route::put('heso', [HeSoController::class, 'update'])
-    ->name('heso.update')
-    ->middleware('check_admin_login');
-
-
 // bangchamcong
 Route::get('bangchamcong', [BangChamCongController::class, 'index'])
-    ->name('bangchamcong')
-    ->middleware('check_admin_login');
+    ->name('bangchamcong');
 
 Route::post('bangchamcong', [BangChamCongController::class, 'store'])
     ->name('bangchamcong.store')
-    ->middleware('check_admin_login');
+    ->middleware('check_to_truong_login');
 
 
 Route::get('sanpham', [SanPhamController::class, 'index'])
-    ->name('sanpham')
-    ->middleware('check_to_truong_login');
+    ->name('sanpham');
 
 Route::get('sanpham/create', [SanPhamController::class, 'create'])
     ->name('sanpham.create')
@@ -664,7 +315,7 @@ Route::get('sanpham/{sanpham}/edit', [SanPhamController::class, 'edit'])
     ->name('sanpham.edit')
     ->middleware('check_to_truong_login');
 
-Route::post('sanpham/{nhanvien}', [SanPhamController::class, 'store'])
+Route::post('sanpham', [SanPhamController::class, 'store'])
     ->name('sanpham.store')
     ->middleware('check_to_truong_login');
 
@@ -678,4 +329,33 @@ Route::delete('sanpham/{sanpham}', [SanPhamController::class, 'destroy'])
 
 Route::put('sanpham/{sanpham}/restore', [SanPhamController::class, 'restore'])
     ->name('sanpham.restore')
+    ->middleware('check_to_truong_login');
+
+
+Route::get('danhmuc', [DanhmucSanphamController::class, 'index'])
+    ->name('danhmuc')
+    ->middleware('check_to_truong_login');
+
+Route::get('danhmuc/create', [DanhmucSanphamController::class, 'create'])
+    ->name('danhmuc.create')
+    ->middleware('check_to_truong_login');
+
+Route::get('danhmuc/{danhmuc}/edit', [DanhmucSanphamController::class, 'edit'])
+    ->name('danhmuc.edit')
+    ->middleware('check_to_truong_login');
+
+Route::post('danhmuc', [DanhmucSanphamController::class, 'store'])
+    ->name('danhmuc.store')
+    ->middleware('check_to_truong_login');
+
+Route::put('danhmuc/{danhmuc}', [DanhmucSanphamController::class, 'update'])
+    ->name('danhmuc.update')
+    ->middleware('check_to_truong_login');
+
+Route::delete('danhmuc/{danhmuc}', [DanhmucSanphamController::class, 'destroy'])
+    ->name('danhmuc.destroy')
+    ->middleware('check_to_truong_login');
+
+Route::put('danhmuc/{danhmuc}/restore', [DanhmucSanphamController::class, 'restore'])
+    ->name('danhmuc.restore')
     ->middleware('check_to_truong_login');

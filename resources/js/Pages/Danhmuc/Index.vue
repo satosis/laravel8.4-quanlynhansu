@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-8 font-bold text-3xl">Lịch Sử Chấm Công</h1>
+    <h1 class="mb-8 font-bold text-3xl">Danh mục sản phẩm</h1>
     <div class="mb-6 flex justify-between items-center">
       <search-filter v-model="form.search" class="w-full max-w-md mr-4" @reset="reset">
         <label class="block text-gray-700">Trạng thái xoá:</label>
@@ -10,40 +10,40 @@
           <option value="with">Tất cả</option>
         </select>
       </search-filter>
-      <inertia-link v-if="$page.props.auth.user.role != 0" class="btn-indigo" :href="route('chamcong.create', filters.nhanvien)">
+      <inertia-link class="btn-indigo" :href="route('danhmuc.create')">
         <span>Tạo Mới</span>
       </inertia-link>
     </div>
     <div class="bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Họ và tên</th>
-          <th class="px-6 pt-6 pb-4" colspan="2">Ngày công</th>
+          <th class="px-6 pt-6 pb-4">Tên sản phẩm</th>
+          <th class="px-6 pt-6 pb-4" colspan="2">Giá tiền</th>
         </tr>
-        <tr v-for="cc in chamcong.data" :key="cc.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
+        <tr v-for="ul in sanpham.data" :key="ul.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
-            <span class="px-6 py-4 flex items-center focus:text-indigo-500"  >
-              {{ cc.hovaten }}
-              <icon v-if="cc.deleted_at" name="trash" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
-            </span>
+            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('danhmuc.edit', ul.id)">
+              {{ ul.tensanpham }}
+              <icon v-if="ul.deleted_at" name="trash" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
+            </inertia-link>
           </td>
           <td class="border-t">
-            <span class="px-6 py-4 flex items-center" tabindex="-1">
-              {{ cc.created_at }}
-            </span>
+            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('danhmuc.edit', ul.id)">
+              {{ ul.gia_tien }}
+            </inertia-link>
           </td>
           <td class="border-t w-px">
-            <inertia-link v-if="$page.props.auth.user.role != 0" class="px-4 flex items-center" :href="route('chamcong.edit', cc.id)" tabindex="-1">
+            <inertia-link class="px-4 flex items-center" :href="route('danhmuc.edit', ul.id)" tabindex="-1">
               <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
             </inertia-link>
           </td>
         </tr>
-        <tr v-if="chamcong.data.length === 0">
-          <td class="border-t px-6 py-4" colspan="2">Không có ngày công nào cả.</td>
+        <tr v-if="sanpham.data.length === 0">
+          <td class="border-t px-6 py-4" colspan="3">Không có danh mục sản phẩm nào cả.</td>
         </tr>
       </table>
     </div>
-    <pagination :links="chamcong.links" />
+    <pagination :links="sanpham.links" />
   </div>
 </template>
 
@@ -56,7 +56,7 @@ import pickBy from 'lodash/pickBy'
 import SearchFilter from '@/Shared/SearchFilter'
 import throttle from 'lodash/throttle'
 export default {
-  metaInfo: { title: 'Chấm Công' },
+  metaInfo: { title: 'Danh mục sản phẩm' },
   layout: Layout,
   components: {
     Icon,
@@ -64,7 +64,7 @@ export default {
     SearchFilter,
   },
   props: {
-    chamcong: Object,
+    sanpham: Object,
     filters: Object,
   },
   data() {
@@ -72,7 +72,6 @@ export default {
       form: {
         search: this.filters.search,
         trashed: this.filters.trashed,
-        nhanvien: this.filters.nhanvien,
       },
     }
   },
@@ -80,7 +79,7 @@ export default {
     form: {
       handler: throttle(function() {
         let query = pickBy(this.form)
-        this.$inertia.replace(this.route('chamcong', Object.keys(query).length ? query : { remember: 'forget' }))
+        this.$inertia.replace(this.route('danhmuc', Object.keys(query).length ? query : { remember: 'forget' }))
       }, 150),
       deep: true,
     },

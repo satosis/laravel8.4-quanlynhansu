@@ -1,0 +1,85 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table san_phams {
+  id integer [primary key]
+  nhanvien_id int(10)
+  ngay_san_xuat date
+  so_luong_dat int(10)
+  so_luong_khong_dat int(10)
+  ghi_chu text
+  nguoi_danh_gia_id int(10)
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table users {
+  id integer [primary key]
+  nhanvien_id int(10)
+  email varchar(50)
+  email_verified_at timestamp
+  password varchar(255)
+  role tinyint(4)
+  remember_token varchar(100)
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table nhanvien {
+  id integer [primary key]
+  hovaten varchar(100)
+  gioitinh tinyint(1)
+  ngaysinh date
+  cmnd varchar(50)
+  sdt varchar(15)
+  diachi varchar(255)
+  quequan varchar(255)
+  trangthai tinyint(1)
+  photo_path varchar(100)
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table chamcong {
+  id integer [primary key]
+  nhanvien_id int(10)
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+TABLE nhanluong {
+  id integer [primary key]
+  nhanvien_id int(10)
+  ngaycongchuan int(11)
+  ngaycong int(11)
+  thuclinh bigint(20)
+  thang int(11)
+  nam int(11)
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table phan_hois {
+  id integer [primary key]
+  nhanvien_id int(10)
+  type_phan_hoi bigint(20)
+  noi_dung text
+  is_giaiquyet int(10)
+  giai_dap text
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+Ref user_posts: nhanvien.id > users.nhanvien_id // many-to-one
+Ref: nhanvien.id < chamcong.nhanvien_id
+Ref: nhanvien.id < nhanluong.nhanvien_id
+Ref: nhanvien.id < phan_hois.nhanvien_id
+
+Ref: nhanvien.id < san_phams.nhanvien_id
+
+Ref: users.id < san_phams.nguoi_danh_gia_id

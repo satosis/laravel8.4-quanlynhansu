@@ -20,7 +20,7 @@ class PhongBanController extends Controller
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate(10)
                 ->withQueryString()
-                ->through(fn ($phongban) => [
+                ->through(fn ($phongban) => [ 
                     'id' => $phongban->id,
                     'tenpb' => $phongban->tenpb,
                     'deleted_at' => $phongban->deleted_at,

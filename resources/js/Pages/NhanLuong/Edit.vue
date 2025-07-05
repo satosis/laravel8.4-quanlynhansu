@@ -14,19 +14,9 @@
       <form @submit.prevent="update">
         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
           <text-input v-model="form.ngaynhan" :error="form.errors.ngaynhan" class="pr-6 pb-8 w-full lg:w-1/2" type="month" label="Tháng nhận" />
-          <text-input v-model="form.ngaycongchuan" :error="form.errors.ngaycongchuan" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Ngày công chuẩn" />
-          <text-input v-model="form.heso" :error="form.errors.heso" class="pr-6 pb-8 w-full lg:w-1/2" label="Hệ số lương" />
-          <text-input v-model="form.hsphucap" :error="form.errors.hsphucap" class="pr-6 pb-8 w-full lg:w-1/2" label="Hệ số phụ cấp" />
-          <text-input v-model="form.khautru" :error="form.errors.khautru" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Khẩu trừ" />
-          <text-input v-model="form.luongcb" :error="form.errors.luongcb" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Lương cơ bản" />
-          <text-input v-model="form.phucap" :error="form.errors.phucap" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Phụ cấp" />
-          <text-input v-model="form.mucluong" :error="form.errors.mucluong" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Mức lương" />
-          <text-input v-model="form.ngaycong" :error="form.errors.ngaycong" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Ngày công" />
-          <text-input v-model="form.nghihl" :error="form.errors.nghihl" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Ngày nghỉ hưởng lương" />
-          <text-input v-model="form.nghikhl" :error="form.errors.nghikhl" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Ngày nghỉ không hưởng lương" />
           <text-input v-model="form.thuong" :error="form.errors.thuong" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Tiền thưởng" />
           <text-input v-model="form.phat" :error="form.errors.phat" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Tiền phạt" />
-          <text-input v-model="form.tamung" :error="form.errors.tamung" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Tạm ứng" />
+          <text-input v-model="form.tien_sp" :error="form.errors.tien_sp" class="pr-6 pb-8 w-full lg:w-1/2" type="number" label="Tiền làm từ sản phẩm" />
           <text-input v-model="form.thuclinh" :error="form.errors.thuclinh" class="pr-6 pb-8 w-full lg:w-1/1" type="number" label="Thực lĩnh" />
         </div>
         <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center">
@@ -66,19 +56,9 @@ export default {
     return {
       form: this.$inertia.form({
         _method: 'put',
-        heso: this.nhanluong.heso.toString(),
-        hsphucap: this.nhanluong.hsphucap.toString(),
-        khautru: this.nhanluong.khautru,
-        luongcb: this.nhanluong.luongcb,
-        mucluong: this.nhanluong.mucluong,
-        phucap: this.nhanluong.phucap,
-        ngaycongchuan: this.nhanluong.ngaycongchuan,
-        ngaycong: this.nhanluong.ngaycong,
-        nghihl: this.nhanluong.nghihl,
-        nghikhl: this.nhanluong.nghikhl,
         thuong: this.nhanluong.thuong,
         phat: this.nhanluong.phat,
-        tamung: this.nhanluong.tamung,
+        tien_sp: this.nhanluong.tien_sp,
         thuclinh: this.nhanluong.thuclinh,
         ngaynhan: this.nhanluong.ngaynhan,
       })

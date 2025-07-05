@@ -20,12 +20,6 @@ class NhanVienExport implements FromCollection,
     public function headings(): array
     {
         return [
-            'phucap_id',
-            'bangcap_id',
-            'chuyenmon_id',
-            'ngoaingu_id',
-            'dantoc_id',
-            'tongiao_id',
             'hovaten',
             'gioitinh',
             'ngaysinh',
@@ -37,9 +31,6 @@ class NhanVienExport implements FromCollection,
             'diachi',
             'quequan',
             'trangthai',
-            'ngaynghilam',
-            'bacluong',
-            'hesoluong',
             'photo_path',
         ];
     }
@@ -47,12 +38,6 @@ class NhanVienExport implements FromCollection,
     public function map($row): array
     {
         return [
-            $row->phucap_id,
-            $row->bangcap_id,
-            $row->chuyenmon_id,
-            $row->ngoaingu_id,
-            $row->dantoc_id,
-            $row->tongiao_id,
             $row->hovaten,
             (!empty($row->gioitinh) ? $row->gioitinh : '0'),
             $row->ngaysinh,
@@ -64,9 +49,6 @@ class NhanVienExport implements FromCollection,
             $row->diachi,
             $row->quequan,
             $row->trangthai,
-            $row->ngaynghilam,
-            $row->bacluong,
-            $row->hesoluong,
             $row->photo_path,
         ];
     }

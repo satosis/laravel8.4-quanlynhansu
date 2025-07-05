@@ -22,13 +22,13 @@ class NhanLuongController extends Controller
         $nam = Request::get('nam');
         $ngaycong = Request::get('ngaycong');
 
-        if (empty($nhanvien_id) || empty($thang) || empty($nam) || empty($ngaycong))
+        if (empty($nhanvien_id) || empty($thang) || empty($nam))
             return response()->json([]);
 
-        if (!is_numeric($nhanvien_id) || !is_numeric($thang) || !is_numeric($nam) || !is_numeric($ngaycong))
+        if (!is_numeric($nhanvien_id) || !is_numeric($thang) || !is_numeric($nam))
             return response()->json([]);
 
-        return response()->json((new NhanLuong())->tinhLuong($nhanvien_id, $ngaycong, $thang, $nam));
+        return response()->json((new NhanLuong())->tinhLuong($nhanvien_id, $thang, $nam));
     }
 
     public function index()
@@ -63,38 +63,18 @@ class NhanLuongController extends Controller
     public function store(NhanVien $nhanvien)
     {
         Request::validate([
-            'heso' => ['required', 'between:0,100.00'],
-            'hsphucap' => ['required', 'between:0,100.00'],
-            'khautru' => ['required', 'integer'],
-            'luongcb' => ['required', 'integer'],
-            'mucluong' => ['required', 'integer'],
-            'phucap' => ['required', 'integer'],
-            'ngaycongchuan' => ['required', 'integer'],
-            'ngaycong' => ['required', 'integer'],
-            'nghihl' => ['required', 'integer'],
-            'nghikhl' => ['required', 'integer'],
-            'thuong' => ['required', 'integer'],
-            'phat' => ['required', 'integer'],
-            'tamung' => ['required', 'integer'],
-            'thuclinh' => ['required', 'integer'],
+            'thuong' => ['required'],
+            'phat' => ['required'],
+            'tien_sp' => ['required'],
+            'thuclinh' => ['required'],
             'ngaynhan' => ['required', 'date'],
         ]);
 
         (new NhanLuong())->create([
             'nhanvien_id' => $nhanvien->id,
-            'heso' => Request::get('heso'),
-            'hsphucap' => Request::get('hsphucap'),
-            'khautru' => Request::get('khautru'),
-            'luongcb' => Request::get('luongcb'),
-            'mucluong' => Request::get('mucluong'),
-            'phucap' => Request::get('phucap'),
-            'ngaycongchuan' => Request::get('ngaycongchuan'),
-            'ngaycong' => Request::get('ngaycong'),
-            'nghihl' => Request::get('nghihl'),
-            'nghikhl' => Request::get('nghikhl'),
             'thuong' => Request::get('thuong'),
             'phat' => Request::get('phat'),
-            'tamung' => Request::get('tamung'),
+            'tien_sp' => Request::get('tien_sp'),
             'thuclinh' => Request::get('thuclinh'),
             'thang' => date('m', strtotime(Request::get('ngaynhan'))),
             'nam' => date('Y', strtotime(Request::get('ngaynhan'))),
@@ -109,19 +89,9 @@ class NhanLuongController extends Controller
             'nhanluong' => [
                 'id' => $nhanluong->id,
                 'hovaten' => $nhanluong->nhanvien->hovaten,
-                'heso' => $nhanluong->heso,
-                'hsphucap' => $nhanluong->hsphucap,
-                'khautru' => $nhanluong->khautru,
-                'luongcb' => $nhanluong->luongcb,
-                'mucluong' => $nhanluong->mucluong,
-                'phucap' => $nhanluong->phucap,
-                'ngaycongchuan' => $nhanluong->ngaycongchuan,
-                'ngaycong' => $nhanluong->ngaycong,
-                'nghihl' => $nhanluong->nghihl,
-                'nghikhl' => $nhanluong->nghikhl,
                 'thuong' => $nhanluong->thuong,
                 'phat' => $nhanluong->phat,
-                'tamung' => $nhanluong->tamung,
+                'tien_sp' => $nhanluong->tien_sp,
                 'thuclinh' => $nhanluong->thuclinh,
                 'ngaynhan' => $nhanluong->nam . '-' . str_pad($nhanluong->thang, 2, '0', STR_PAD_LEFT),
                 'deleted_at' => $nhanluong->deleted_at,
@@ -132,37 +102,17 @@ class NhanLuongController extends Controller
     public function update(NhanLuong $nhanluong)
     {
         Request::validate([
-            'heso' => ['required', 'between:0,100.00'],
-            'hsphucap' => ['required', 'between:0,100.00'],
-            'khautru' => ['required', 'integer'],
-            'luongcb' => ['required', 'integer'],
-            'mucluong' => ['required', 'integer'],
-            'phucap' => ['required', 'integer'],
-            'ngaycongchuan' => ['required', 'integer'],
-            'ngaycong' => ['required', 'integer'],
-            'nghihl' => ['required', 'integer'],
-            'nghikhl' => ['required', 'integer'],
-            'thuong' => ['required', 'integer'],
-            'phat' => ['required', 'integer'],
-            'tamung' => ['required', 'integer'],
-            'thuclinh' => ['required', 'integer'],
+            'thuong' => ['required'],
+            'phat' => ['required'],
+            'tien_sp' => ['required'],
+            'thuclinh' => ['required'],
             'ngaynhan' => ['required', 'date'],
         ]);
 
         $nhanluong->update([
-            'heso' => Request::get('heso'),
-            'hsphucap' => Request::get('hsphucap'),
-            'khautru' => Request::get('khautru'),
-            'luongcb' => Request::get('luongcb'),
-            'mucluong' => Request::get('mucluong'),
-            'phucap' => Request::get('phucap'),
-            'ngaycongchuan' => Request::get('ngaycongchuan'),
-            'ngaycong' => Request::get('ngaycong'),
-            'nghihl' => Request::get('nghihl'),
-            'nghikhl' => Request::get('nghikhl'),
             'thuong' => Request::get('thuong'),
             'phat' => Request::get('phat'),
-            'tamung' => Request::get('tamung'),
+            'tien_sp' => Request::get('tien_sp'),
             'thuclinh' => Request::get('thuclinh'),
             'thang' => date('m', strtotime(Request::get('ngaynhan'))),
             'nam' => date('Y', strtotime(Request::get('ngaynhan'))),

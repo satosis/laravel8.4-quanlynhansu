@@ -26,16 +26,7 @@
               </div>
               <div slot="dropdown" class="mt-2 py-2 shadow-xl bg-white rounded text-sm">
                 <inertia-link class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('nhanvien.edit', $page.props.auth.user.id)">Hồ Sơ Của Bạn</inertia-link>
-                <inertia-link class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('chamcong', { nhanvien: $page.props.auth.user.nhanvien_id })">Lịch Sử Chấm Công</inertia-link>
                 <inertia-link class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('users.edit', $page.props.auth.user.id)">Cài Đặt Tài Khoản</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('phongban')">Quản Lý Phòng Ban</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('chucvu')">Quản Lý Chức Vụ</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('bangcap')">Quản Lý Bằng Cấp</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('chuyenmon')">Quản Lý Chuyên Môn</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('ngoaingu')">Quản Lý Ngoại Ngữ</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('dantoc')">Quản Lý Dân Tộc</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('tongiao')">Quản Lý Tôn Giáo</inertia-link>
-                <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('loaibaohiem')">Quản Lý Loại Bảo Hiểm</inertia-link>
                 <inertia-link v-if="$page.props.auth.user.role == 2" class="block px-6 py-2 hover:bg-indigo-500 hover:text-white" :href="route('users')">Quản Lý Người Dùng</inertia-link>
                 <inertia-link class="block px-6 py-2 hover:bg-indigo-500 hover:text-white w-full text-left" :href="route('logout')" method="delete" as="button">Đăng Xuất</inertia-link>
               </div>
