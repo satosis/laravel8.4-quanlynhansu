@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 05, 2025 lúc 04:16 PM
+-- Thời gian đã tạo: Th7 05, 2025 lúc 05:48 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -50,6 +50,14 @@ CREATE TABLE `danhmuc` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `danhmuc`
+--
+
+INSERT INTO `danhmuc` (`id`, `tensanpham`, `gia_tien`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Quần jean', 7000, '2025-07-05 07:53:18', '2025-07-05 07:56:01', NULL),
+(2, 'Áo may', 5000, '2025-07-05 07:53:36', '2025-07-05 07:53:36', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -59,8 +67,9 @@ CREATE TABLE `danhmuc` (
 CREATE TABLE `nhanluong` (
   `id` int(10) UNSIGNED NOT NULL,
   `nhanvien_id` int(10) UNSIGNED NOT NULL,
-  `ngaycongchuan` int(11) NOT NULL,
-  `ngaycong` int(11) NOT NULL,
+  `thuong` float DEFAULT NULL,
+  `phat` float DEFAULT NULL,
+  `tien_sp` float DEFAULT NULL,
   `thuclinh` bigint(20) NOT NULL,
   `thang` int(11) NOT NULL,
   `nam` int(11) NOT NULL,
@@ -68,6 +77,13 @@ CREATE TABLE `nhanluong` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `nhanluong`
+--
+
+INSERT INTO `nhanluong` (`id`, `nhanvien_id`, `thuong`, `phat`, `tien_sp`, `thuclinh`, `thang`, `nam`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 3, NULL, NULL, NULL, 49000, 7, 2025, '2025-07-05 08:44:33', '2025-07-05 08:44:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -96,9 +112,9 @@ CREATE TABLE `nhanvien` (
 --
 
 INSERT INTO `nhanvien` (`id`, `hovaten`, `gioitinh`, `ngaysinh`, `cmnd`, `sdt`, `diachi`, `quequan`, `trangthai`, `photo_path`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Quản trị viên', 0, '2005-04-13', '', '', 'Việt Nam', 'Việt Nam', 1, NULL, '2025-04-22 17:07:57', '2025-04-22 17:07:57', NULL),
+(1, 'Quản trị viên', 0, '2005-04-13', '12323213', '12123213', 'Việt Nam', 'Việt Nam', 1, NULL, '2025-04-22 17:07:57', '2025-07-05 08:13:23', NULL),
 (2, 'Tổ trưởng', 0, '2005-04-13', '', '', 'Việt Nam', 'Việt Nam', 1, NULL, '2025-04-22 10:07:57', '2025-04-22 10:07:57', NULL),
-(3, 'Nhân viên Test', 0, '2005-04-13', '', '', 'Việt Nam', 'Việt Nam', 1, NULL, '2025-04-22 10:07:57', '2025-04-22 10:07:57', NULL);
+(3, 'Nhân viên Test', 0, '2005-04-13', '421421421421', '213214321', 'Việt Nam', 'Việt Nam', 1, NULL, '2025-04-22 10:07:57', '2025-07-05 08:14:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -138,6 +154,14 @@ CREATE TABLE `san_phams` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `san_phams`
+--
+
+INSERT INTO `san_phams` (`id`, `danhmuc_id`, `nhanvien_id`, `ngay_san_xuat`, `so_luong_dat`, `so_luong_khong_dat`, `ghi_chu`, `nguoi_danh_gia_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 3, '2025-07-17', 4, 0, 'Giày', 2, '2025-07-05 08:03:18', '2025-07-05 08:38:20', NULL),
+(3, 2, 3, '2025-07-17', 4, 0, 'Giày', 2, '2025-07-05 08:04:02', '2025-07-05 08:04:02', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -158,7 +182,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('IUoez30549JQ9uy9vdJq2V8rnSHrYjCaQHgIKDUc', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidzZuRjJ2a0xJYVdUbGJ0bWV6NndMSDBqZHhvejZSYWJjVGdGZVFOWCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC90aHVvbmdwaGF0LzEvY3JlYXRlIjt9fQ==', 1751723983);
+('IUoez30549JQ9uy9vdJq2V8rnSHrYjCaQHgIKDUc', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidzZuRjJ2a0xJYVdUbGJ0bWV6NndMSDBqZHhvejZSYWJjVGdGZVFOWCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9uaGFubHVvbmcvMS9lZGl0Ijt9fQ==', 1751730438);
 
 -- --------------------------------------------------------
 
@@ -178,6 +202,14 @@ CREATE TABLE `thuongphat` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `thuongphat`
+--
+
+INSERT INTO `thuongphat` (`id`, `nhanvien_id`, `loai`, `sotien`, `lydo`, `thang`, `nam`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 3, 0, 1000, 'Làm ẩu', 7, 2025, '2025-07-05 08:16:59', '2025-07-05 08:16:59', NULL),
+(3, 3, 1, 2000, 'Hoàn thành tốt 2', 7, 2025, '2025-07-05 08:17:18', '2025-07-05 08:17:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -249,7 +281,6 @@ ALTER TABLE `phan_hois`
 --
 ALTER TABLE `san_phams`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `fk_san_phams_danhmuc_id` (`danhmuc_id`),
   ADD KEY `fk_san_phams_nhanvien_id` (`nhanvien_id`),
   ADD KEY `fk_san_phams_users_id` (`nguoi_danh_gia_id`);
 
@@ -287,10 +318,16 @@ ALTER TABLE `chamcong`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `danhmuc`
+--
+ALTER TABLE `danhmuc`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT cho bảng `nhanluong`
 --
 ALTER TABLE `nhanluong`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `nhanvien`
@@ -305,10 +342,16 @@ ALTER TABLE `phan_hois`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `san_phams`
+--
+ALTER TABLE `san_phams`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT cho bảng `thuongphat`
 --
 ALTER TABLE `thuongphat`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
